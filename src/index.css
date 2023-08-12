@@ -1,0 +1,23 @@
+body{
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+:root,body,html {
+  background-color: black;
+  box-sizing: border-box;
+}
+div, h1, h2, h3, h4, h5, header, html, i 
+,image, label, li, ul , p ,nav , small , span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body{
+  font-family: Google Sans,Helvetica Neue,sans-serif;
+}
