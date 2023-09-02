@@ -1,41 +1,49 @@
+import React from 'react';
 import styled from 'styled-components'
 
-const Login = (props) => {
+class Login extends React.Component {
 
-    return (
-        <Container>
-            <Nav>
-                <img src='/images/NWU-white-logo.png' alt='NWu-logo'></img>
+    constructor(props){
+        super(props)
+        
+    }
 
-            </Nav>
+    render() {
+         return (
+            <Container>
+                <Nav>
+                    <img src='/images/NWU-white-logo.png' alt='NWu-logo'></img>
 
-            <Section>
-                <Hero>
-                    <Heading> Let's sign you in.</Heading>
-                    <SubHeading>Welcome to NWU student registration portal.</SubHeading>
-                    <div>
-                        <img src='/images/Online learning-amico.svg' alt='NWu-logo'></img>
-                    </div>
+                </Nav>
+
+                <Section>
+                    <Hero>
+                        <Heading> Let's sign you in.</Heading>
+                        <SubHeading>Welcome to NWU student registration portal.</SubHeading>
+                        <div>
+                            <img src='/images/Online learning-amico.svg' alt='NWu-logo'></img>
+                        </div>
+                        
+                    </Hero>
+
+                    <Form>
+                        <StudentNo placeholder='Univesrity number or student number' type={'text'}/>
+                        <StudentNo placeholder='Enter Pin' type={'text'}/>
+                        <div>
+                            <p>forgot your NWU pin?</p>
+                            <a>Reset</a>
+                        </div>
+                        <SignInButton>Sign in</SignInButton>
+                    </Form>
+
                     
-                </Hero>
-
-                <Form>
-                    <StudentNo placeholder='Univesrity number or student number' type={'text'}/>
-                    <StudentNo placeholder='Enter Pin' type={'text'}/>
-                    <div>
-                        <p>forgot your NWU pin?</p>
-                        <a>Reset</a>
-                    </div>
-                    <SignInButton>Sign in</SignInButton>
-                </Form>
-
-                
 
 
-            </Section>
-        </Container>
-    
-        )
+                </Section>
+            </Container>
+        
+            );
+         }
 
 }
 
