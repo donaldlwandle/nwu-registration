@@ -1,64 +1,101 @@
 import React from 'react';
 import styled from 'styled-components'
-import {useHistory} from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
+import { useContext , useState , useEffect} from 'react';
+import FirebaseContext from '../../lib/context/firebaseContext';
 
-class Login extends React.Component {
+export default function Login() {
 
-    constructor(props){
-        super(props)
-        
+    // App anvigation
+    const navigation = useNavigate();
+    
+    //calling database context
+    const { firebase } = useContext(FirebaseContext);
+
+    //state for storing form inputs
+    const [email , setEmail] = useState('');
+    const [password , setPassword] = useState('');
+
+    //usestate for input errors
+    const [error , setError] = useState('');
+
+    // uses state for input validation
+    const isInvalid = password === '' || email === '';
+
+    // hande login
+    const executeLogin = () => {
+
     }
 
-    render() {
-         return (
-            <Container>
-                <Nav>
-                    <img src='/images/NWU-white-logo.png' alt='NWu-logo'></img>
-
-                </Nav>
-
-                <Section>
-                    <Hero>
-                        <Heading> Let's sign you in.</Heading>
-                        <SubHeading>Welcome to NWU student registration portal.</SubHeading>
-                        <div>
-                            <img src='/images/Online learning-amico.svg' alt='NWu-logo'></img>
-                        </div>
-                        
-                    </Hero>
-
-                    <Form>
-                        <StudentNo placeholder='Univesrity number or student number' type={'text'}/>
-                        <StudentNo placeholder='Enter Pin' type={'text'}/>
-                        <div>
-                            <p>forgot your NWU pin?</p>
-                            <a>Reset</a>
-                        </div>
-                        <SignInButton>Sign in</SignInButton>
-                    </Form>
-
-                    
+    useEffect(() => {
+      document.title = 'Login-NWU'
+    
+      
+    }, [])
+    
 
 
-                </Section>
-            </Container>
         
-            );
-         }
+    
+    return (
+        <Container>
+            <Nav>
+                <img src='/images/NWU-white-logo.png' alt='NWu-logo'></img>
+
+            </Nav>
+
+            <Section>
+                <Hero>
+                    <Heading> Let's sign you in.</Heading>
+                    <SubHeading>Welcome to NWU student registration portal.</SubHeading>
+                    <div>
+                        <img src='/images/Online learning-amico.svg' alt='NWu-logo'></img>
+                    </div>
+                    
+                </Hero>
+
+                <Form onSubmit={executeLogin} method="POST">
+                    <StudentNo  placeholder='Univesrity number or student number'
+                     type={'text'}
+                     onChange={({target}) => setEmail(target.value)} />
+
+                    <StudentNo placeholder='Enter password' 
+                    type={'password'}
+                    autoComplete ={'off'}
+                    onChange={({target}) => setPassword(target.value)} />
+
+                    <div>
+                        <p>forgot your NWU password?</p>
+                        <a>Reset</a>
+                    </div>
+                    <SignInButton disabled={isInvalid}
+                    type='submit'
+                    >Sign in</SignInButton>
+                </Form>
+
+                
+
+
+            </Section>
+        </Container>
+
+    );
+         
 
 }
 
 const Container = styled.div`
+    
     padding: 0px;
 
 `;
 
 const Nav = styled.nav`
-    max-width: 1128px;
-    margin: auto;
-    padding: 0px 0 16px;
     display: flex;
     align-items: center; 
+    justify-content: center;
+    background: var(--stroke, #70298D);
+    padding: 5px;
 
     img{
         width: 100px;
@@ -79,13 +116,14 @@ const Section = styled.section`
     padding-top: 40px;
     max-width: 1128px;
     margin: auto;
-    padding: 16px;
+    padding: 18px 0px 18px 18px;
     align-content: start;
 
     
     @media (max-width: 768px) {
-        padding: 0 5px;
+        
         padding-top: 50px;
+        margin: 0;
         
         
     }
@@ -128,8 +166,9 @@ const SubHeading = styled.p`
     font-size: 55px;
     line-height: 55px;
     font-weight: 500;
+    margin-top: 50px;
     
-    color: #e1e1e1;
+    color: #111212;
 
     @media (max-width: 768px ) {
         width: 100%;
@@ -145,7 +184,7 @@ const Heading = styled.p`
     line-height: 70px;
     font-weight: 700;
     
-    color: #fff;
+    color: black;
 
     @media (max-width: 768px ) {
         width: 100%;
@@ -158,14 +197,19 @@ const Heading = styled.p`
 const Form = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 70px;
     width:408px;
     padding-right: 10px;
 
+    
+
     @media (max-width: 768px ) {
         margin-top: 60px
+
         
     }
+        
+    
     div{
         display: flex;
         flex-wrap: wrap;
@@ -174,11 +218,11 @@ const Form = styled.div`
         position: relative;
         align-items: center;
         margin-bottom: 10px;
-        margin-top: 50px;
+        margin-top: 30px;
         
 
         p{
-            color: white;
+            color: black;
             font-size: 16px;
         }
 
@@ -196,11 +240,11 @@ const SignInButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
     height: 56px;
     width: 100%;
     color: black;
-    border-radius: 20px;
+    border-radius: 10px;
+    background: var(--stroke, #70298D);
     transition-duration: 167ms;
     font-size: 20px;
     font-weight: 700;
@@ -208,7 +252,10 @@ const SignInButton = styled.button`
     border: 0;
 
     &:hover{
-        background-color: #c1c1c1;
+        background-color: #5f2e7399;
+    }
+    &:disabled{
+        opacity: 0.5;
     }
     
 
@@ -221,20 +268,24 @@ const StudentNo = styled.input`
     text-align: start;
     padding-left:20px;
     height: 56px;
-    width: 100%;
-    border-radius: 20px;
+    width: 95%;
+    border-radius: 10px;
     transition-duration: 167ms;
     font-size: 16px;
     margin-bottom: 30px;
     font-weight: 200;
-    box-shadow: inset 0 0 0 1.5px #39383e;
     border: none;
-    background: none;
-    color: white;
+    background: #D9D9D9;
+    color: black;
+    
+
+    &:focus{
+        outline: 2px solid #70298D;  
+
+    }
     
 
     
 
 `;
 
-export default Login;
