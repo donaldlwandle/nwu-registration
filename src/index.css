@@ -4,7 +4,7 @@ body{
 }
 
 :root,body,html {
-  background-color: white;
+  
   box-sizing: border-box;
   display: block;
 }
@@ -20,7 +20,7 @@ div, h1, h2, h3, h4, h5, header, html, i
 }
 
 body{
-  font-family: Google Sans,Helvetica Neue,sans-serif;
+  
   margin: 0;
 
 
@@ -33,15 +33,4 @@ body{
 
 
 
-::-webkit-scrollbar{
-  width: 0.5em;
-}
 
-::-webkit-scrollbar-track{
-  background:inherit;
-}
-
-::-webkit-scrollbar-thumb{
-  background:#c9d1d9;
-  border-radius: 100vw;
-}

@@ -3,14 +3,21 @@ import styled from 'styled-components'
 import {useNavigate } from 'react-router-dom'
 import { useContext , useState , useEffect} from 'react';
 import FirebaseContext from '../../lib/context/firebaseContext';
+import { getAuth,signInWithEmailAndPassword  } from 'firebase/auth';
+import Header from '../components/header';
+import { Link } from 'react-router-dom';
+
+
+
+import * as ROUTES from '../../utils/constants/routes'
 
 export default function Login() {
 
     // App anvigation
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     
     //calling database context
-    const { firebase } = useContext(FirebaseContext);
+    const { firebaseApp } = useContext(FirebaseContext);
 
     //state for storing form inputs
     const [email , setEmail] = useState('');
@@ -19,11 +26,31 @@ export default function Login() {
     //usestate for input errors
     const [error , setError] = useState('');
 
+    //check if string has numbers
+    function containsNumber(str) {
+        return /[0-9]/.test(str);
+    }
+
     // uses state for input validation
-    const isInvalid = password === '' || email === '';
+    const isInvalid = password === '' || email === '' 
+    || !email.includes("@") || !email.includes(".") 
+    || !email.includes("nwu") || !containsNumber(email) ;
 
     // hande login
-    const executeLogin = () => {
+    const executeLogin =async ( event ) => {
+        event.preventDefault();
+
+        try {
+
+            await signInWithEmailAndPassword(getAuth(firebaseApp),email.toLowerCase() ,password);
+            navigate(ROUTES.DASHBOARD);
+            
+        } catch (error) {
+            
+            setEmail("");
+            setPassword("");
+            setError(error.message);
+        }
 
     }
 
@@ -39,10 +66,7 @@ export default function Login() {
     
     return (
         <Container>
-            <Nav>
-                <img src='/images/NWU-white-logo.png' alt='NWu-logo'></img>
-
-            </Nav>
+            <Header/>
 
             <Section>
                 <Hero>
@@ -55,7 +79,10 @@ export default function Login() {
                 </Hero>
 
                 <Form onSubmit={executeLogin} method="POST">
-                    <StudentNo  placeholder='Univesrity number or student number'
+
+                    {error && <Error> {error}</Error>}
+
+                    <StudentNo  placeholder='Student email'
                      type={'text'}
                      onChange={({target}) => setEmail(target.value)} />
 
@@ -66,15 +93,12 @@ export default function Login() {
 
                     <div>
                         <p>forgot your NWU password?</p>
-                        <a>Reset</a>
+                        <Link to={ROUTES.RESET_PWORD}>Reset</Link>
                     </div>
                     <SignInButton disabled={isInvalid}
-                    type='submit'
+                    type="submit"
                     >Sign in</SignInButton>
                 </Form>
-
-                
-
 
             </Section>
         </Container>
@@ -84,30 +108,15 @@ export default function Login() {
 
 }
 
+
+
 const Container = styled.div`
+    max-width: 100%;
     
     padding: 0px;
 
 `;
 
-const Nav = styled.nav`
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    background: var(--stroke, #70298D);
-    padding: 5px;
-
-    img{
-        width: 100px;
-
-        @media (max-width: 768px) {
-            padding: 0 5px;
-            width: 60px;
-            
-        }
-    }
-
-`;
 
 const Section = styled.section`
     display: flex;
@@ -116,7 +125,7 @@ const Section = styled.section`
     padding-top: 40px;
     max-width: 1128px;
     margin: auto;
-    padding: 18px 0px 18px 18px;
+    padding: 18px 10px 18px 18px;
     align-content: start;
 
     
@@ -124,6 +133,7 @@ const Section = styled.section`
         
         padding-top: 50px;
         margin: 0;
+        align-content: center;
         
         
     }
@@ -137,8 +147,8 @@ const Hero = styled.div`
     div{
         /* z-index: -1; */
         position: absolute;
-        right: -100px;
-        bottom: -2px;
+        right: -60px;
+        bottom: -30px;
 
         @media (max-width: 768px ) {
             position: initial;
@@ -149,11 +159,12 @@ const Hero = styled.div`
     }
 
     img{
-        width: 670px;
+        width: 640px;
         height: 640px;
 
-        @media (max-width: 768px ) {
-            
+        @media (max-width: 1000px ) {
+            width: 540px;
+            height: 540px;
         }
     }
 
@@ -161,47 +172,53 @@ const Hero = styled.div`
 `;
 
 const SubHeading = styled.p`
-    width: 55%;
+    width: 40%;
     margin: 20px 0 0 0;
-    font-size: 55px;
-    line-height: 55px;
+    font-size: 32px;
+    line-height: 44px;
     font-weight: 500;
-    margin-top: 50px;
+    margin-top: 20px;
     
-    color: #111212;
+    color: #263238;
 
     @media (max-width: 768px ) {
         width: 100%;
-        font-size: 30px;
-        line-height: 50px;
+        font-size: 24px;
+        line-height: 32px;
     }
 
 `;
 
 const Heading = styled.p`
-    width: 55%;
-    font-size: 70px;
-    line-height: 70px;
+    width: 40%;
+    font-size: 80px;
+    line-height: 80px;
     font-weight: 700;
     
     color: black;
 
     @media (max-width: 768px ) {
         width: 100%;
-        font-size: 50px;
-        line-height: 45px;
+        font-size: 48px;
+        line-height: 52px;
     }
+
+    @media (min-width: 1012px){
+        
+        font-size: 96px ;
+        line-height: 100px ;
+        
+    } 
 
 `;
 
-const Form = styled.div`
+const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
-    margin-top: 70px;
-    width:408px;
+    margin-top: 20px;
+    width:380px;
     padding-right: 10px;
 
-    
 
     @media (max-width: 768px ) {
         margin-top: 60px
@@ -218,21 +235,39 @@ const Form = styled.div`
         position: relative;
         align-items: center;
         margin-bottom: 10px;
-        margin-top: 30px;
+        margin-top: 10px;
         
 
         p{
             color: black;
             font-size: 16px;
+            font-weight: 600;
         }
 
         a{
             color: #6c3d91;
             margin-left: 10px;
-            font-size: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            
+            &:hover{
+                text-decoration: underline;
+            }
+
         }
     }
 
+
+`;
+
+const Error = styled.div`
+    background: white;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #cf0f0f;
+    padding: 15px 20px;
 
 `;
 
@@ -240,16 +275,17 @@ const SignInButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 56px;
+    height: 3rem;
     width: 100%;
     color: black;
-    border-radius: 10px;
+    border-radius: 0.375rem;
     background: var(--stroke, #70298D);
     transition-duration: 167ms;
     font-size: 20px;
     font-weight: 700;
     box-shadow: none;
     border: 0;
+    cursor: pointer;
 
     &:hover{
         background-color: #5f2e7399;
@@ -263,13 +299,13 @@ const SignInButton = styled.button`
 `;
 
 const StudentNo = styled.input`
-    display: flex;
+     display: flex;
     justify-content: start;
     text-align: start;
     padding-left:20px;
-    height: 56px;
+    height: 3rem;
     width: 95%;
-    border-radius: 10px;
+    border-radius: 0.375rem;
     transition-duration: 167ms;
     font-size: 16px;
     margin-bottom: 30px;
@@ -288,4 +324,5 @@ const StudentNo = styled.input`
     
 
 `;
+
 

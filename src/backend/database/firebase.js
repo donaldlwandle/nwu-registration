@@ -13,10 +13,11 @@ const firebaseConfig = {
   };
 
   const firebaseApp = initializeApp(firebaseConfig);
-  const dataBase = getFirestore(firebaseApp);
-  const dataBaseAuth = getAuth(firebaseApp);
+ 
+
+  
 
   console.log('FIREBASE :' , firebaseApp);
 
-  export {firebaseApp , dataBase};
+  export {firebaseApp };
   

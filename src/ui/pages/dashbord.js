@@ -1,0 +1,307 @@
+import React from "react";
+import styled from "styled-components";
+import Header from "../components/header";
+import TopSection from "../components/topsection";
+import { useState } from "react";
+
+export default function DashBoard(){
+
+    /// use state checkbox
+    const[isChecked,setIsChecked] = useState(false);
+
+
+    return(
+
+        <Container>
+
+            <Header/>
+
+            <Section>
+                <TopSection/>
+
+                <Content>
+                    <h1>Qualifification Registration Selection</h1>
+                    
+                    <ConfirmSec>
+                        <div>
+                            
+                            <label>
+                                <CheckBox type={'checkbox'} />
+                                <span>
+                                    By registering you agree to the university's
+                                    <a href="https://www.nwu.ac.za/gov_man/policy/index.html"
+                                        target={"_blank"}
+                                        rel="noreferrer" 
+                                    >  terms and conditions</a>
+
+                                </span>
+                                
+                            </label>
+                            
+                        </div>
+                    </ConfirmSec>
+
+                    <YearTitle>
+                        <p>Registration year 2024</p>
+                    </YearTitle>
+
+                    <Table>
+                        <Row1>
+                            <Col1>
+                                Qualification Programe Level
+
+                            </Col1>
+                            <Stroke/>
+
+                            <Col2>
+                                Status
+                            </Col2>
+
+
+
+                        </Row1>
+
+                        <Row2>
+
+                            <Col1>
+                                BCOM INFORMATION SYSTEMS
+
+                            </Col1>
+                            <Stroke/>
+
+                            <Col2>
+                                Register
+                            </Col2>
+
+                        </Row2>
+                    </Table>
+
+                    <NextButton disabled={!isChecked}
+                    type="submit"
+                    > Next </NextButton>
+
+
+                </Content>
+
+            </Section>
+        </Container>
+    )
+}
+
+const Container = styled.div`
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
+    
+
+
+`;
+
+const Section = styled.section`
+    display: flex;
+    padding: 18px;
+    max-width: 1128px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+`;
+
+const Content =styled.div`
+    width: 500px;
+    @media (max-width: 1000px) {
+        
+        
+         
+    }
+    h1{
+        color: black;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-top: 40px;
+    }
+
+`;
+
+const ConfirmSec = styled.div`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 40px;
+
+    @media (max-width: 1000px) {
+        
+        width: 100%;
+
+        
+    }
+
+    div{
+        font-size: 20px;
+        font-weight: 400;
+
+    
+        
+
+        @media (max-width: 1000px) {
+        
+            font-size:16px;
+
+        
+        }
+        
+        
+        label{
+
+            display: inline-flex;
+            color: black;
+            align-items: center;
+            cursor: pointer;
+
+            
+
+        }
+
+        a{
+            color: #70298D;
+            text-decoration: none;
+
+            &:hover{
+                text-decoration: underline;
+                
+            }
+
+        }
+
+    }
+
+`;
+
+const CheckBox = styled.input`
+    display: flex;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    justify-content: center;
+    background: none;
+    background-color:#D9D9D9;
+    border-color: #D9D9D9;
+    border-radius: 5px;
+    
+    @media (max-width: 760px) {
+        
+        width: 25px;
+        height: 25px;
+        padding-right: 10px;
+
+    
+    }
+
+
+    &:checked{
+        background: green;
+        color: white;
+
+    }
+    
+    
+
+`;
+
+const YearTitle = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 400;
+    color: #999999;
+    line-height: normal;
+    margin-top: 30px;
+
+    @media (max-width: 760px) {
+        
+
+    }
+
+`;
+
+const Table = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 30px;
+
+    @media (max-width: 760px) {
+        
+        
+         
+    }
+
+    
+`;
+
+const Row1 =styled.div`
+    background-color: #70298D;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--stroke, #70298D);
+    border-radius: 5px 5px 0px 0px;
+
+
+`;
+
+const Row2 =styled.div`
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid var(--stroke, #70298D);
+    background: #FFFBFB;
+    display: flex;
+    flex-direction: row;
+
+
+
+`;
+const Col1 =styled.div`
+    width: 250px;
+    padding: 6px;
+    font-size: 16px;
+    font-weight: 500;
+`;
+const Col2 =styled.div`
+    padding: 6px;
+    font-size: 16px;
+    font-weight: 500;
+`;
+
+const Stroke =styled.div`
+    width: 1px;
+    background-color: grey;
+`;
+
+const NextButton = styled.button`
+    display: flex;
+    margin-top: 40px;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 100%;
+    color: black;
+    border-radius: 0.375rem;
+    background: var(--stroke, #70298D);
+    transition-duration: 167ms;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: none;
+    border: 0;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #5f2e7399;
+    }
+    &:disabled{
+        opacity: 0.5;
+    }
+    
+
+
+`;
