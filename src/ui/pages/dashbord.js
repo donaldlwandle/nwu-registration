@@ -3,12 +3,26 @@ import styled from "styled-components";
 import Header from "../components/header";
 import TopSection from "../components/topsection";
 import { useState } from "react";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import { green, grey } from "@mui/material/colors";
+import {useNavigate , useLocation} from 'react-router-dom'
+import * as ROUTES from '../../utils/constants/routes'
 
 export default function DashBoard(){
 
     /// use state checkbox
-    const[isChecked,setIsChecked] = useState(false);
+    const[toggleChecked,setToggleChecked] = useState(false);
 
+    //navigation
+    const navigate = useNavigate();
+    
+
+    const executeNext = (event) =>{
+        event.preventDefault();
+
+       navigate(ROUTES.SELECT);
+    }
 
     return(
 
@@ -22,21 +36,28 @@ export default function DashBoard(){
                 <Content>
                     <h1>Qualifification Registration Selection</h1>
                     
-                    <ConfirmSec>
+                    <ConfirmSec onClick={()=> setToggleChecked((toggleChecked) => !toggleChecked)}>
                         <div>
                             
                             <label>
-                                <CheckBox type={'checkbox'} />
-                                <span>
-                                    By registering you agree to the university's
-                                    <a href="https://www.nwu.ac.za/gov_man/policy/index.html"
-                                        target={"_blank"}
-                                        rel="noreferrer" 
-                                    >  terms and conditions</a>
-
-                                </span>
+                                <CheckBox >
+                                    {toggleChecked ? (
+                                        // <img src='/images/check.png' alt='checked'/>
+                                        <CheckCircleIcon sx={{ color: green[500] }} />
+                                    ):<RadioButtonUncheckedIcon  sx={{ color: grey[500] }} />}
+                                    
+                                </CheckBox>
+                                
                                 
                             </label>
+                            <span>
+                                By registering you agree to the university's
+                                <a href="https://www.nwu.ac.za/gov_man/policy/index.html"
+                                    target={"_blank"}
+                                    rel="noreferrer" 
+                                >  terms and conditions</a>
+
+                            </span>
                             
                         </div>
                     </ConfirmSec>
@@ -76,9 +97,11 @@ export default function DashBoard(){
                         </Row2>
                     </Table>
 
-                    <NextButton disabled={!isChecked}
+                    <NextButton disabled={!toggleChecked}
                     type="submit"
+                    onClick={executeNext}
                     > Next </NextButton>
+                    
 
 
                 </Content>
@@ -92,6 +115,8 @@ const Container = styled.div`
     display: flex;
     max-width: 100%;
     flex-direction: column;
+
+    
     
 
 
@@ -100,17 +125,27 @@ const Container = styled.div`
 const Section = styled.section`
     display: flex;
     padding: 18px;
-    max-width: 1128px;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-`;
 
-const Content =styled.div`
-    width: 500px;
     @media (max-width: 1000px) {
         
         
+         
+    }
+
+
+`;
+
+const Content =styled.div`
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @media (max-width: 1000px) {
+        
+        width: 100%;
          
     }
     h1{
@@ -129,6 +164,7 @@ const ConfirmSec = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin-top: 40px;
+    cursor: pointer;
 
     @media (max-width: 1000px) {
         
@@ -138,8 +174,11 @@ const ConfirmSec = styled.div`
     }
 
     div{
+        display: flex;
+        align-items: center;
         font-size: 20px;
         font-weight: 400;
+        justify-content: space-around;
 
     
         
@@ -157,7 +196,9 @@ const ConfirmSec = styled.div`
             display: inline-flex;
             color: black;
             align-items: center;
-            cursor: pointer;
+            margin-right: 5px;
+            
+            
 
             
 
@@ -178,34 +219,28 @@ const ConfirmSec = styled.div`
 
 `;
 
-const CheckBox = styled.input`
+const CheckBox = styled.div`
     display: flex;
     align-items: center;
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
     justify-content: center;
     background: none;
-    background-color:#D9D9D9;
-    border-color: #D9D9D9;
-    border-radius: 5px;
+    
+
+    svg{
+        width:100%;
+        height: 100%;
+    }
     
     @media (max-width: 760px) {
         
-        width: 25px;
-        height: 25px;
-        padding-right: 10px;
+        width: 30px;
+        height: 30px;
 
     
     }
 
-
-    &:checked{
-        background: green;
-        color: white;
-
-    }
-    
-    
 
 `;
 
@@ -262,10 +297,16 @@ const Row2 =styled.div`
 
 `;
 const Col1 =styled.div`
-    width: 250px;
+    width: 400px;
     padding: 6px;
     font-size: 16px;
     font-weight: 500;
+
+    @media (max-width: 1000px) {
+        
+        width: 240px;
+         
+    }
 `;
 const Col2 =styled.div`
     padding: 6px;
