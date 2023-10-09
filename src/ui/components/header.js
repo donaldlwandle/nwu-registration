@@ -5,10 +5,12 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import {useNavigate , useLocation} from 'react-router-dom'
 
 import * as ROUTES from '../../utils/constants/routes'
+import { UseStateValue } from '../../lib/context/stateProvider';
 
 export default function Header({}){
 
     const location = useLocation();
+    const [{list}] = UseStateValue();
 
     return(
         <Nav>
@@ -18,11 +20,11 @@ export default function Header({}){
             <img src='/images/nwu_logo.png' alt='NWU-logo'></img>
 
             <Options>
-                {location === ROUTES.SELECT ? (
+                {location.pathname === ROUTES.SELECT ? (
                     <Link to={ROUTES.CHECKOUT}>
                         <Checkout>
                             <ShoppingBagIcon/>
-                            <span>0</span>
+                            <span>{list?.length}</span>
                         </Checkout>
 
                     </Link>

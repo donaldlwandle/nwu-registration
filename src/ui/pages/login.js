@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 
 import * as ROUTES from '../../utils/constants/routes'
+import { UseStateValue } from '../../lib/context/stateProvider';
 
 export default function Login() {
 
@@ -17,7 +18,7 @@ export default function Login() {
     const navigate = useNavigate();
     
     //calling database context
-    const { firebaseApp } = useContext(FirebaseContext);
+    const [{ firebaseApp }] = UseStateValue();
 
     //state for storing form inputs
     const [email , setEmail] = useState('');

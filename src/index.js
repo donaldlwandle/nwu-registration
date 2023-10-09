@@ -2,18 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import FirebaseContext from './lib/context/firebaseContext';
 import {firebaseApp } from "./backend/database/firebase"
 import { GlobalStyles } from './global-styles';
+import Reducer, { InitialState } from './lib/reducer';
+import { StateProvider } from './lib/context/stateProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <FirebaseContext.Provider value = {{firebaseApp }}>
+    <StateProvider  initialState ={InitialState} 
+      reducer= {Reducer}
+    >
       <App />
-      <GlobalStyles/>
+      <GlobalStyles/> 
 
-    </FirebaseContext.Provider>
+    </StateProvider>
     
   </React.StrictMode>
 );

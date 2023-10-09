@@ -18,7 +18,7 @@ export default function TopSection(){
 
 const Container = styled.div`
     display: flex;
-    width: 60%;
+    width: 100%;
     flex-wrap: wrap;
     flex-direction: column;
     color: black;

@@ -1,12 +1,15 @@
 body{
   overflow-y: scroll;
-  overflow-x: hidden;
+
+
+  overflow-x:hidden !important;
 }
 
 :root,body,html {
   
   box-sizing: border-box;
   display: block;
+ 
 }
 div, h1, h2, h3, h4, h5, header, html, i 
 ,image, label, li, ul , p ,nav , small , span {

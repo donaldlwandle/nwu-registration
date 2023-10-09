@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 
 import * as ROUTES from '../../utils/constants/routes'
+import { UseStateValue } from '../../lib/context/stateProvider';
 
 export default function ResetPassword() {
 
@@ -17,8 +18,7 @@ export default function ResetPassword() {
     const navigate = useNavigate();
     
     //calling database context
-    const { firebaseApp } = useContext(FirebaseContext);
-
+    const [{ firebaseApp }] = UseStateValue();
     //state for storing form inputs
     const [email , setEmail] = useState('');
 
@@ -103,26 +103,9 @@ const Container = styled.div`
 
 `;
 
-const Nav = styled.nav`
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    background: var(--stroke, #70298D);
-    padding: 10px;
 
-    
 
-    img{
-        width: 120px;
 
-        @media (max-width: 768px) {
-            
-            width: 70px;
-            
-        }
-    }
-
-`;
 
 const Section = styled.section`
     display: flex;

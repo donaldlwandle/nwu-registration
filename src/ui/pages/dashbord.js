@@ -31,9 +31,10 @@ export default function DashBoard(){
             <Header/>
 
             <Section>
-                <TopSection/>
+                
 
                 <Content>
+                    <TopSection/>
                     <h1>Qualifification Registration Selection</h1>
                     
                     <ConfirmSec onClick={()=> setToggleChecked((toggleChecked) => !toggleChecked)}>
@@ -125,6 +126,7 @@ const Container = styled.div`
 const Section = styled.section`
     display: flex;
     padding: 18px;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -140,7 +142,7 @@ const Section = styled.section`
 
 const Content =styled.div`
     display: flex;
-    width: 50%;
+    width: 60%;
     flex-wrap: wrap;
     flex-direction: column;
     @media (max-width: 1000px) {

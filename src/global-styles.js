@@ -10,12 +10,8 @@ export const GlobalStyles = createGlobalStyle`
         background-color: white; 
         color:black;
         font-size: 16px;
+        
 
-        @media (max-width: 1000px) {
-            
-            
-            
-        }
     }
 
     ::-webkit-scrollbar{
