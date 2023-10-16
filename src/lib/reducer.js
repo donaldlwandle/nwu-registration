@@ -9,9 +9,15 @@ export const InitialState = {
 
 const Reducer =(state,action)=>{
     
-    console.log(action);
+    
  
     switch (action.type){
+        case 'SET_USER':
+            return{
+                //set login user
+                ...state,
+                user:action.user
+            }
 
         case 'ADD_TO_LIST':
             // Add item to list

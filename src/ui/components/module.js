@@ -6,13 +6,10 @@ import { green, grey } from '@mui/material/colors';
 import { UseStateValue } from '../../lib/context/stateProvider';
 
 
-export default function Module({id,code,name}) {
+export default function Module({id,code,name,credits}) {
     const [{list},dispatch] = UseStateValue();
 
-
-    console.log("this is the basked" , list);
-
-    const isValid = list.length <3;
+    const isValid = list.length <12;
 
     // 👇️ check if array contains object
     const isFound = list.some(element => {
@@ -24,7 +21,7 @@ export default function Module({id,code,name}) {
     });
 
 
-    const executeSelection = ()=>{ 
+     const executeSelection = ()=>{ 
         
         //if is in the list remove{
             if(isFound){
@@ -45,6 +42,7 @@ export default function Module({id,code,name}) {
                             id:id,
                             code:code,
                             name:name,
+                            credits:credits
                         }
                     });
     

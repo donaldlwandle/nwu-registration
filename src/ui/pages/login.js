@@ -14,6 +14,13 @@ import { UseStateValue } from '../../lib/context/stateProvider';
 
 export default function Login() {
 
+    useEffect(() => {
+        document.title = 'Login-NWU'
+      
+        
+    }, [])
+      
+
     // App anvigation
     const navigate = useNavigate();
     
@@ -55,11 +62,6 @@ export default function Login() {
 
     }
 
-    useEffect(() => {
-      document.title = 'Login-NWU'
-    
-      
-    }, [])
     
 
 

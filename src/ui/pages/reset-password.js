@@ -13,6 +13,12 @@ import * as ROUTES from '../../utils/constants/routes'
 import { UseStateValue } from '../../lib/context/stateProvider';
 
 export default function ResetPassword() {
+    useEffect(() => {
+        document.title = 'Reset-Password-NWU'
+      
+        
+    }, [])
+      
 
     // App anvigation
     const navigate = useNavigate();
@@ -53,11 +59,6 @@ export default function ResetPassword() {
 
     }
 
-    useEffect(() => {
-      document.title = 'Login-NWU'
-    
-      
-    }, [])
     
 
 

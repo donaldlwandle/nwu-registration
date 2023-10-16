@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/header";
 import TopSection from "../components/topsection";
@@ -10,6 +10,12 @@ import {useNavigate , useLocation} from 'react-router-dom'
 import * as ROUTES from '../../utils/constants/routes'
 
 export default function DashBoard(){
+    useEffect(() => {
+        document.title = 'NWU-Registration'
+      
+        
+    }, [])
+      
 
     /// use state checkbox
     const[toggleChecked,setToggleChecked] = useState(false);

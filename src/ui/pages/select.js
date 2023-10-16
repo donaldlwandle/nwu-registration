@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components"
 import { UseStateValue } from "../../lib/context/stateProvider";
 import Header from "../components/header";
@@ -10,6 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function Select(){
+    useEffect(() => {
+        document.title = 'NWU-Registration'
+      
+        
+    }, [])
+      
 
     const [{list},dispatch] = UseStateValue();
 
@@ -38,31 +44,59 @@ export default function Select(){
                         <h1>Select modules</h1>
                         <div className="modules_sec">
                             <Module 
-                            id ={"2515531"}
-                            code={"INFS SOMETHING"}
+                            id ={"211"}
+                            code={"INFS 211"}
                             name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-
+                            credits={18}
                             />
 
                             <Module 
-                            id ={"2515532"}
-                            code={"INFS SOMETHING"}
+                            id ={"212"}
+                            code={"INFS 212"}
                             name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-
+                            credits={18}
                             />
 
                             <Module 
-                            id ={"2515533"}
-                            code={"INFS SOMETHING"}
+                            id ={"213"}
+                            code={"INFS 213"}
                             name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-
+                            credits={18}
                             />
 
                             <Module 
-                            id ={"2515534"}
-                            code={"INFS SOMETHING"}
+                            id ={"214"}
+                            code={"INFS 214"}
                             name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                            credits={18}
+                            />
 
+                            <Module 
+                            id ={"221"}
+                            code={"INFS 221"}
+                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                            credits={18}
+                            />
+
+                            <Module 
+                            id ={"222"}
+                            code={"INFS 222"}
+                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                            credits={18}
+                            />
+
+                            <Module 
+                            id ={"223"}
+                            code={"INFS 223"}
+                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                            credits={18}
+                            />
+
+                            <Module 
+                            id ={"224"}
+                            code={"INFS 224"}
+                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                            credits={18}
                             />
                         </div>
 
@@ -98,6 +132,7 @@ const Section = styled.div`
         display: flex;
         width: 60%;
         flex-direction: column;
+        padding-bottom: 50px;
 
         @media (max-width: 1000px) {
             width: 100%;
