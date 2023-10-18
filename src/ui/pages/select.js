@@ -16,14 +16,22 @@ export default function Select(){
         
     }, [])
 
-    const [{list,modules}] = UseStateValue();
+    const [{list,modules , userData}] = UseStateValue();
 
     console.log('Modules *****',modules);
       
-
+    const modulesList = filterArrays(modules ,userData.completedModules)
+    console.log('completed modules' ,userData.completedModules)
     
 
-
+    function filterArrays(array1, array2) {
+        const filteredArray = array1.filter(item1 => {
+            // Check if item.id is included in array2
+            return !array2.includes(item1.moduleId);
+          });
+        
+        return filteredArray;
+    }
     const isInvalid = list.length === 0 ;
 
     const navigate = useNavigate();
@@ -49,8 +57,8 @@ export default function Select(){
                         <div className="modules_sec">
                             
 
-                            {modules?(
-                                modules.map((module,i) =>(
+                            {modulesList?(
+                                modulesList.map((module,i) =>(
                                     <Module 
                                     
                                     id ={module.id}
