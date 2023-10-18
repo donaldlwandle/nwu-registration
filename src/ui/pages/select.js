@@ -62,10 +62,10 @@ export default function Select(){
 
                             ):(
                                 <Module 
-                                    id ={"211"}
-                                    code={"INFS 211"}
-                                    name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                                    credits={18}
+                                    id ={""}
+                                    code={""}
+                                    name= {""}
+                                    credits={""}
                                     />
                             )}
 
