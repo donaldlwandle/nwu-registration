@@ -1,11 +1,20 @@
 import React from "react";
 import { styled } from "styled-components";
+import { getUserDataById } from "../../backend/database/database-querry";
+import { UseStateValue } from "../../lib/context/stateProvider";
 
-export default function TopSection(){
+
+export const TopSection =() =>{
+    const [{ firebaseApp ,userData}] = UseStateValue();
+    console.log('User Data >>><<<',userData);
+    
+    
+    
+    
 
     return(
         <Container>
-            NTULI, D.L ({"39043169"})
+            {userData?(userData.fullName):<p></p>}
 
             <SectionCard>
 
@@ -58,3 +67,5 @@ const SectionCard = styled.div`
         
     }
 `;
+
+export default TopSection;

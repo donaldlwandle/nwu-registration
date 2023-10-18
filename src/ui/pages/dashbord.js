@@ -8,13 +8,68 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { green, grey } from "@mui/material/colors";
 import {useNavigate , useLocation} from 'react-router-dom'
 import * as ROUTES from '../../utils/constants/routes'
+import { UseStateValue } from "../../lib/context/stateProvider";
+import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 
 export default function DashBoard(){
+    const [{ firebaseApp ,user,userData},dispatch] = UseStateValue();
+
+    async function executeGetUserData(){
+        const q = query(collection(getFirestore(firebaseApp), "students"), where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const [uData] = querySnapshot.docs.map((item)=>({
+            ...item.data(),
+            docId:item.id
+
+        }));
+
+        
+
+        dispatch({
+            type:'SET_USER_DATA',
+            userData:uData
+          });
+
+    }
+
+    async function getModules(){
+        const q = query(collection(getFirestore(firebaseApp), "modules"));
+        const querySnapshot = await getDocs(q);
+
+        const modulesData = querySnapshot.docs.map(doc=>({
+            id:doc.id,
+            ...doc.data()
+
+        }));
+
+        dispatch({
+            type:'SET_MODULES',
+            modules:modulesData
+          });
+
+        
+
+    }
+    
+
     useEffect(() => {
         document.title = 'NWU-Registration'
+        executeGetUserData();
+        getModules();
+        
+        
       
         
     }, [])
+
+    
+    
+
+    
+
+    
+    
       
 
     /// use state checkbox
@@ -98,7 +153,8 @@ export default function DashBoard(){
                             <Stroke/>
 
                             <Col2>
-                                Register
+                                {userData && !userData.isRegistered? (`Register`) :`Registered` }
+                                
                             </Col2>
 
                         </Row2>

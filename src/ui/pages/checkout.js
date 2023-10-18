@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components"
 import { UseStateValue } from "../../lib/context/stateProvider";
 import Header from "../components/header";
-import Module from "../components/module";
 import TopSection from "../components/topsection";
 
 import * as ROUTES from '../../utils/constants/routes'
@@ -18,7 +17,7 @@ export default function Checkout(){
     }, [])
       
 
-    const [{list},dispatch] = UseStateValue();
+    const [{list}] = UseStateValue();
 
     const getTotalLength =(arr) => {
         // Use the reduce method to sum up the length property of each item

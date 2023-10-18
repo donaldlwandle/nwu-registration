@@ -3,7 +3,9 @@ import { firebaseApp } from "../backend/database/firebase";
 
 export const InitialState = {
     list: [],
+    modules:[],
     user:null,
+    userData:null,
     firebaseApp:firebaseApp
 }
 
@@ -12,6 +14,20 @@ const Reducer =(state,action)=>{
     
  
     switch (action.type){
+        case 'SET_MODULES':
+            return{
+                //set login user
+                ...state,
+                modules:action.modules
+            }
+
+        case 'SET_USER_DATA':
+            return{
+                //set login user
+                ...state,
+                userData:action.userData
+            }
+
         case 'SET_USER':
             return{
                 //set login user

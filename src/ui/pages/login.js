@@ -6,11 +6,14 @@ import FirebaseContext from '../../lib/context/firebaseContext';
 import { getAuth,signInWithEmailAndPassword  } from 'firebase/auth';
 import Header from '../components/header';
 import { Link } from 'react-router-dom';
+import useUserData from "../../lib/hooks/get-user-data";
 
 
 
 import * as ROUTES from '../../utils/constants/routes'
 import { UseStateValue } from '../../lib/context/stateProvider';
+
+
 
 export default function Login() {
 
@@ -25,7 +28,7 @@ export default function Login() {
     const navigate = useNavigate();
     
     //calling database context
-    const [{ firebaseApp }] = UseStateValue();
+    const [{ firebaseApp ,user}] = UseStateValue();
 
     //state for storing form inputs
     const [email , setEmail] = useState('');
@@ -51,6 +54,7 @@ export default function Login() {
         try {
 
             await signInWithEmailAndPassword(getAuth(firebaseApp),email.toLowerCase() ,password);
+            
             navigate(ROUTES.DASHBOARD);
             
         } catch (error) {

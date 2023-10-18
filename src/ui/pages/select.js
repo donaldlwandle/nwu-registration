@@ -15,9 +15,13 @@ export default function Select(){
       
         
     }, [])
+
+    const [{list,modules}] = UseStateValue();
+
+    console.log('Modules *****',modules);
       
 
-    const [{list},dispatch] = UseStateValue();
+    
 
 
     const isInvalid = list.length === 0 ;
@@ -43,61 +47,28 @@ export default function Select(){
                     <div className="modules_selection">
                         <h1>Select modules</h1>
                         <div className="modules_sec">
-                            <Module 
-                            id ={"211"}
-                            code={"INFS 211"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
+                            
 
-                            <Module 
-                            id ={"212"}
-                            code={"INFS 212"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
+                            {modules?(
+                                modules.map((module,i) =>(
+                                    <Module 
+                                    
+                                    id ={module.id}
+                                    code={module.moduleId}
+                                    name= {module.name}
+                                    credits={module.credits}
+                                    />
+                                ))
 
-                            <Module 
-                            id ={"213"}
-                            code={"INFS 213"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
+                            ):(
+                                <Module 
+                                    id ={"211"}
+                                    code={"INFS 211"}
+                                    name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
+                                    credits={18}
+                                    />
+                            )}
 
-                            <Module 
-                            id ={"214"}
-                            code={"INFS 214"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
-
-                            <Module 
-                            id ={"221"}
-                            code={"INFS 221"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
-
-                            <Module 
-                            id ={"222"}
-                            code={"INFS 222"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
-
-                            <Module 
-                            id ={"223"}
-                            code={"INFS 223"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
-
-                            <Module 
-                            id ={"224"}
-                            code={"INFS 224"}
-                            name= {"Web Programing gjgjgj fhjbhbfg fgjbgb fguu"}
-                            credits={18}
-                            />
                         </div>
 
                     </div>

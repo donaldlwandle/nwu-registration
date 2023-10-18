@@ -7,11 +7,15 @@ import { getAuth, signOut } from "firebase/auth";
 
 import * as ROUTES from '../../utils/constants/routes'
 import { UseStateValue } from '../../lib/context/stateProvider';
+import { getUserDataById } from '../../backend/database/database-querry';
 
 export default function Header(){
+    
 
     const location = useLocation();
     const [{list, firebaseApp , user}] = UseStateValue();
+
+
 
     console.log('The firebase app is >>>', firebaseApp);
 

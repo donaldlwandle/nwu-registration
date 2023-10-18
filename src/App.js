@@ -3,12 +3,10 @@ import './App.css';
 import { BrowserRouter as Router , Routes , Route } from "react-router-dom";
 import * as ROUTES from './utils/constants/routes'
 import React ,{ lazy, Suspense, useEffect, useState } from 'react';
-import { firebaseApp } from './backend/database/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { UseStateValue } from './lib/context/stateProvider';
 import ProtectedRoute from './utils/protected-route';
 import IsUserLoggedIn from './utils/is-logged-in';
-
 const Login = lazy(()=> import('./ui/pages/login'));
 const ResetPassword = lazy(()=> import('./ui/pages/reset-password'));
 const DashBoard = lazy(()=> import('./ui/pages/dashbord'));
@@ -17,7 +15,7 @@ const Checkout = lazy(()=> import('./ui/pages/checkout'));
 
 function App() {
   
-  const [{list},dispatch ,user] = UseStateValue();
+  const [{firebaseApp},dispatch ] = UseStateValue();
   const [authUser, setauthUser] = useState(null);
 
   console.log("THE AUTH USER IS >>>> ", authUser);
@@ -54,7 +52,9 @@ function App() {
     
   
     
-  }, []);
+  }, [authUser]);
+
+  
 
   
 
