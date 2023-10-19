@@ -18,11 +18,10 @@ export default function Select(){
 
     const [{list,modules , userData}] = UseStateValue();
 
-    console.log('Modules *****',modules);
       
     const modulesList = filterArrays(modules ,userData.completedModules)
-    console.log('completed modules' ,userData.completedModules)
     
+    console.log('completed modules' ,userData.completedModules);
 
     function filterArrays(array1, array2) {
         const filteredArray = array1.filter(item1 => {
@@ -60,11 +59,13 @@ export default function Select(){
                             {modulesList?(
                                 modulesList.map((module,i) =>(
                                     <Module 
-                                    
+                                    key={module.id}
                                     id ={module.id}
                                     code={module.moduleId}
                                     name= {module.name}
                                     credits={module.credits}
+                                    prereq={module.prerequisites
+                                    }
                                     />
                                 ))
 

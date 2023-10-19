@@ -6,10 +6,11 @@ import { green, grey } from '@mui/material/colors';
 import { UseStateValue } from '../../lib/context/stateProvider';
 
 
-export default function Module({id,code,name,credits}) {
-    const [{list},dispatch] = UseStateValue();
+export default function Module({id,code,name,credits,prereq}) {
+    const [{list,userData},dispatch] = UseStateValue();
+    const [missingItems, setMissingItems] = useState('');
 
-    const isValid = list.length <12;
+    
 
     // 👇️ check if array contains object
     const isFound = list.some(element => {
@@ -20,11 +21,27 @@ export default function Module({id,code,name,credits}) {
         return false;
     });
 
+    const isMetPrereqz= (array1, array2) => {
+        const missing = array1.filter(item => !array2.includes(item));
+        
+        if (missing.length > 0) {
+          setMissingItems(`You must to complete: ${missing.join(', ')}`);
+          return false;
+        } else {
+          setMissingItems('');
+          return true;
+        }
+    }
+    
+    
+
+    const isValid = list.length <12  ;
+
 
      const executeSelection = ()=>{ 
         
         //if is in the list remove{
-            if(isFound){
+            if(isFound ){
                 //remove from basked if it already exist
                 
                 dispatch({
@@ -35,19 +52,23 @@ export default function Module({id,code,name,credits}) {
             }else{
                 //add to basked when checked/seleted
                 if(isValid){
-                    dispatch({
-                        type: 'ADD_TO_LIST',
+                    if(isMetPrereqz(prereq, userData.completedModules)){
+                        dispatch({
+                            type: 'ADD_TO_LIST',
+        
+                            item: {
+                                id:id,
+                                code:code,
+                                name:name,
+                                credits:credits
+                            }
+                        });
+        
     
-                        item: {
-                            id:id,
-                            code:code,
-                            name:name,
-                            credits:credits
-                        }
-                    });
-    
+                    }
 
                 }
+                
                 
 
             }
@@ -71,7 +92,8 @@ export default function Module({id,code,name,credits}) {
                 {code}
             </div>
             <div className="center_row2">
-                {name}
+            {missingItems?(<Error>{missingItems}</Error>) :name }
+                
             </div>
 
         </Center>
@@ -135,5 +157,10 @@ export const Center = styled.div`
 
 export const End = styled.div`
 
+`;
+
+export const Error =styled.p`
+    color: #cf0f0f;
+    font-weight: 600;
 `;
 
