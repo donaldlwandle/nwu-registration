@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components"
 import { UseStateValue } from "../../lib/context/stateProvider";
-import Header from "../components/header";
-import TopSection from "../components/topsection";
-
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
-import CheckoutModule from "../components/checkout-module";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { green } from "@mui/material/colors";
-import jsPDF from "jspdf";
+import { green, grey } from "@mui/material/colors";
 import ReactToPrint from "react-to-print";
 
 
@@ -22,6 +18,7 @@ export default function Receipt(){
       
 
     const [{list,userData}] = UseStateValue();
+    const[toggleChecked,setToggleChecked] = useState(false);
     const navigate = useNavigate();
 
     const component = useRef();
@@ -36,14 +33,7 @@ export default function Receipt(){
     const executeNext = (event) =>{
         
         navigate(ROUTES.REGISTERED)
-        //generatePdf();
-        
-
        
-    }
-    
-    const generatePdf =() =>{
-        //window.print();
     }
 
 
@@ -54,53 +44,70 @@ export default function Receipt(){
 
             <Section>
 
-                <div className="content" >
+                <Content >
                     
                     
-                    <div ref={component}  className="registration-status">
+                    <RegistrationStatus ref={component}  className="registration-status">
                         
 
                         <CheckCircleIcon fontSize="large" sx={{ color: green[500] }} />
                         <Heading>Thank you for your Payment</Heading>
-                        <div className=" status_text">
+                        <StatusText className=" status_text">
                             Your Outstanding fees have been payed succesfully.
-                        </div>
-                        <div className=" total_text">
+                        </StatusText>
+                        <TotalText className=" total_text">
                             Payment Amout:
                             <span>{rand.format(11300 + userData.balanceOwing)}</span>
-                        </div>
+                        </TotalText>
 
-                        <div className=" details_text">
+                        <DetailsText className=" details_text">
                             Payment Details:
                             <span> Payment processed on :{date.toLocaleDateString()}</span>
-                        </div>
+                        </DetailsText>
 
-                        <div className=" details_text">
+                        <DetailsText className=" details_text">
                             <span> Payment processed at :{date.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</span>
-                        </div>
+                        </DetailsText>
 
-                        <div className=" details_text">
+                        <DetailsText className=" details_text">
                             Payment method:
                             <span> PaEFT (CHECK)
                             </span>
                             <span> XXXX0000</span>
-                        </div>
+                        </DetailsText>
 
-                        <div className=" details_text">
+                        <DetailsText className=" details_text">
                             <img src='/images/NWU-white-logo.png' alt='NWU-logo'></img>
-                            <span> POR ON THE WAY</span>
+                            <span> Proof Of Residence ON THE WAY</span>
+                        </DetailsText>
+                        
+
+                    </RegistrationStatus>
+
+                    
+
+                    
+
+                    <ReactToPrint  trigger={() =>(
+
+                        <div className="receipt_container" >
+                            
+
+                            <span>Download Recipt</span>
+
                         </div>
                         
 
-                    </div>
-
-                    <ReactToPrint trigger={() =>(
-                        <NextButton 
-                        onClick={executeNext}> Next </NextButton>
                     )}
 
                     content = {() => component.current}
                     />
+
+                    <NextButton 
+                        
+                        type="submit"
+                        onClick={executeNext}> Next 
+                    </NextButton>
                         
 
                     
@@ -108,7 +115,7 @@ export default function Receipt(){
                     
                     
 
-                </div>
+                </Content>
                 
             </Section>
         </Container>
@@ -123,6 +130,101 @@ const Container = styled.div`
 
 `;
 
+const RegistrationStatus = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+    
+
+    svg{
+        width: 100px;
+        height: 100px;
+    }
+
+`
+
+const StatusText = styled.div`
+    text-align: center;
+    padding: 10px 100px;
+    font-weight: 500;
+    font-size: 16px;
+    color: grey;
+
+    @media (max-width: 720px) {
+        width: 100%;
+        padding: 10px;
+        
+    
+        
+    }
+
+`;
+
+const TotalText = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 100px;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+
+    span{
+        font-family: Allerta;
+        margin-top: 5px;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    @media (max-width: 720px) {
+        width: 100%;
+        padding: 10px;
+        
+    
+        
+    }
+
+`;
+
+const DetailsText= styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 100px;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+    align-items: center;
+
+    span{
+        font-size: 25px;
+        font-family: Allerta;
+        margin-top: 5px;
+        color: grey;
+    }
+
+    img{
+        width: 90px;
+        height: 90px;
+    }
+
+    @media (max-width: 720px) {
+        width: 100%;
+        padding: 10px;
+        
+    
+        
+    }
+
+`;
+
+
+
 const Section = styled.div`
     display: flex;
     width: 100%;
@@ -130,113 +232,31 @@ const Section = styled.div`
     padding: 18px;
     
 
-    .content{
-        display: flex;
-        width: 60%;
-        flex-direction: column;
-        padding-bottom: 50px;
 
-        @media (max-width: 1000px) {
-            width: 100%;
-            
-        
-         
-        }
-        
-    }
-
-    .registration-status{
+    .receipt_container{
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
         margin-top: 40px;
-        width: 100%;
         
-
-        svg{
-            width: 100px;
-            height: 100px;
-        }
-    }
-
-    .status_text{
-        
-        text-align: center;
-        padding: 10px 100px;
-        font-weight: 500;
-        font-size: 16px;
-        color: grey;
-
-        @media (max-width: 720px) {
-            width: 100%;
-            padding: 10px;
-            
-        
-         
-        }
-
-    }
-
-    .total_text{
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding: 10px 100px;
-        font-weight: 500;
-        font-size: 16px;
-        color: black;
-
         span{
-            font-family: Allerta;
-            margin-top: 5px;
-            font-size: 32px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        }
+            padding-left: 5px;
+            text-decoration: underline;
+            font-weight: 500;
+            color: #702A8D;
+            cursor: pointer;
 
-        @media (max-width: 720px) {
-            width: 100%;
-            padding: 10px;
             
-        
-         
-        }
 
+        }
     }
 
-    .details_text{
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding: 10px 100px;
-        font-weight: 500;
-        font-size: 16px;
-        color: black;
-        align-items: center;
+    
 
-        span{
-            font-size: 25px;
-            font-family: Allerta;
-            margin-top: 5px;
-            color: grey;
-        }
+   
 
-        img{
-            width: 90px;
-            height: 90px;
-        }
+    
 
-        @media (max-width: 720px) {
-            width: 100%;
-            padding: 10px;
-            
-        
-         
-        }
-
-    }
+    
 
 
     
@@ -255,6 +275,20 @@ const Section = styled.div`
     
 `;
 
+const Content = styled.div`
+    display: flex;
+        width: 60%;
+        flex-direction: column;
+        padding-bottom: 50px;
+
+        @media (max-width: 1000px) {
+            width: 100%;
+            
+        
+         
+        }
+`
+
 const Heading = styled.h1`
     color: #2ab514;
     font-size: 25px;
@@ -264,6 +298,33 @@ const Heading = styled.h1`
     margin-top: 10px;
     text-align: center;
 `;
+
+
+const CheckBox = styled.div`
+    display: flex;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    justify-content: center;
+    background: none;
+    
+
+    svg{
+        width:100%;
+        height: 100%;
+    }
+    
+    @media (max-width: 760px) {
+        
+        width: 30px;
+        height: 30px;
+
+    
+    }
+
+
+`;
+
 
 const NextButton = styled.button`
     display: flex;

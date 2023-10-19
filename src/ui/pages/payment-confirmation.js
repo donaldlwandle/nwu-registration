@@ -6,7 +6,7 @@ import TopSection from "../components/topsection";
 import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
 import CheckoutModule from "../components/checkout-module";
-
+import PaystackPop from '@paystack/inline-js'
 
 export default function ConfirmPayment(){
     useEffect(() => {
@@ -43,10 +43,41 @@ export default function ConfirmPayment(){
 
     const navigate = useNavigate();
 
+
     const executeNext = (event) =>{
         event.preventDefault();
+        const email = userData.emailAddress;
+        const fName = "Donald";
+        const lName ="Ntuli";
 
-        navigate(ROUTES.RECEIPT)
+
+        const paystack = new PaystackPop();
+        paystack.newTransaction({
+            key:"pk_test_41483ff8b0d09020737de5cb734fcafd4a40fadb",
+            amount:5,
+            email,
+            fName,
+            lName,
+
+            onSuccess(transaction){
+                let message =`Payment Complete! Reference ${transaction.reference}`
+                alert(message)
+                navigate(ROUTES.RECEIPT)
+            },
+
+            onCancel(){
+                alert("Transaction processing canceled!")
+            },
+
+            onDeclined(){
+                alert("Transaction declined!")
+
+            }
+
+
+        })
+
+        //
    
     }
 
