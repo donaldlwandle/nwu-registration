@@ -7,9 +7,12 @@ import TopSection from "../components/topsection";
 import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
 import CheckoutModule from "../components/checkout-module";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import { green, grey } from "@mui/material/colors";
 
 
-export default function Checkout(){
+export default function Provisionaly(){
     useEffect(() => {
         document.title = 'NWU-Registration'
       
@@ -18,39 +21,22 @@ export default function Checkout(){
       
 
     const [{list,userData}] = UseStateValue();
-
-    const getTotalLength =(arr) => {
-        // Use the reduce method to sum up the length property of each item
-        const totalLength = arr.reduce((accumulator, currentItem) => {
-          if (typeof currentItem.credits === 'number') {
-            return accumulator + currentItem.credits;
-          } else {
-            console.log(`Item does not have a valid length property: ${JSON.stringify(currentItem)}`);
-            return accumulator;
-          }
-        }, 0);
-      
-        return totalLength;
-      }
-
-
-    const isInvalid = list.length === 0 ;
-
     const navigate = useNavigate();
+    
+    let rand = new Intl.NumberFormat('en-ZA', {
+        style: 'currency',
+        currency: 'ZAR',
+    });
 
-    const executeNext = (event) =>{
+    const executePayment = (event) =>{
         event.preventDefault();
+        navigate(ROUTES.CONFIRM_PAYMENT)
 
-        if (userData.isSelfPaying  ) {
-            //navigate to provisionaly registered
-            navigate(ROUTES.PROVISIONALLY)
-        }else{
-            navigate(ROUTES.REGISTERED)
-        }
         
-
-   
+        
     }
+
+
 
     return (
         <Container>
@@ -61,43 +47,20 @@ export default function Checkout(){
 
                 <div className="content">
                     <TopSection/>
-                    <Heading>Modules Checkout</Heading>
+                    <Heading>You have been provisionally registered!</Heading>
 
-                    <div className="modules_selection">
-                        <div className="table_head">
-                            <div className="col1"> MODULE</div>
-                            <div className="stroke"></div>
-                            <div className="col2">CREDITS</div>
-
-                        </div>
-                         
-                        <div className="table_body">
-                            {list.map(item => (
-                                <CheckoutModule
-                                    id={item.id}
-                                    code={item.code}
-                                    name={item.name}
-                                    credits={item.credits}
-                                />
-
-                            ))}
-                            
-
-                            
-
+                    <div className="registration-status">
+                        <NewReleasesIcon sx={{ color: grey[500] }} />
+                        <div className=" status_text">
+                            To be be fully registered you have to pay your 
+                            outstanding fee of <span>{rand.format(userData.balanceOwing)}</span> and the registration fee 
                         </div>
                         
-                        <div className="table_tail">
-                            <div className="total">
-                                Total   : {getTotalLength(list)}
-                            </div>
-
-                        </div>
 
                     </div>
 
-                    <NextButton disabled = {isInvalid}
-                    onClick={executeNext}> Next </NextButton>
+                    <NextButton 
+                    onClick={executePayment}> Proceed to Payment </NextButton>
                     
 
                 </div>
@@ -137,15 +100,43 @@ const Section = styled.div`
         
     }
 
-    .modules_selection{
+    .registration-status{
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         margin-top: 40px;
         width: 100%;
         h1{
             font-size: medium;
             font: 600;
         }
+
+        svg{
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    .status_text{
+        color: grey;
+        text-align: center;
+        padding: 10px 100px;
+        font-weight: 600;
+        font-size: 20px;
+
+        @media (max-width: 720px) {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        
+         
+        }
+
+        span{
+            color: #702A8D;
+        }
+
     }
 
     .table_head{
@@ -219,6 +210,7 @@ const Heading = styled.h1`
     font-weight: 600;
     line-height: normal;
     margin-top: 40px;
+    text-align: center;
 `;
 
 const NextButton = styled.button`

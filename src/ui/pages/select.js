@@ -95,17 +95,18 @@ export default function Select(){
 
 const Container = styled.div`
     display: flex;
-    max-width: 100%;
     flex-direction: column;
+    
     
 
 `;
 
 const Section = styled.div`
     display: flex;
-    width: 100%;
+    max-width: 100%;
     justify-content: center;
     padding: 18px;
+    
     
 
     .content{

@@ -1,0 +1,7 @@
+.App{
+    overflow-y: scroll;
+    padding: 0!important;
+    overflow-x:hidden !important;
+    max-width: 100%;
+}
+

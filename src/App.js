@@ -12,6 +12,10 @@ const ResetPassword = lazy(()=> import('./ui/pages/reset-password'));
 const DashBoard = lazy(()=> import('./ui/pages/dashbord'));
 const Select= lazy(()=> import('./ui/pages/select'));
 const Checkout = lazy(()=> import('./ui/pages/checkout'));
+const Registered = lazy(()=> import('./ui/pages/registered'));
+const Provisionally = lazy(()=> import('./ui/pages/provisionally'));
+const ConfirmPayment = lazy(()=> import('./ui/pages/payment-confirmation'));
+const Receipt = lazy(()=> import('./ui/pages/receipt'));
 
 function App() {
   
@@ -76,6 +80,14 @@ function App() {
           
             
             <Route exact element={<ProtectedRoute user={authUser} Component={Checkout}/>} path = {ROUTES.CHECKOUT} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={Registered}/>} path = {ROUTES.REGISTERED} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={Provisionally}/>} path = {ROUTES.PROVISIONALLY} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={ConfirmPayment}/>} path = {ROUTES.CONFIRM_PAYMENT} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={Receipt}/>} path = {ROUTES.RECEIPT} />
               
             
               

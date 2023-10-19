@@ -3,13 +3,12 @@ import styled from "styled-components"
 import { UseStateValue } from "../../lib/context/stateProvider";
 import Header from "../components/header";
 import TopSection from "../components/topsection";
-
 import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
 import CheckoutModule from "../components/checkout-module";
 
 
-export default function Checkout(){
+export default function ConfirmPayment(){
     useEffect(() => {
         document.title = 'NWU-Registration'
       
@@ -18,6 +17,7 @@ export default function Checkout(){
       
 
     const [{list,userData}] = UseStateValue();
+    
 
     const getTotalLength =(arr) => {
         // Use the reduce method to sum up the length property of each item
@@ -31,7 +31,12 @@ export default function Checkout(){
         }, 0);
       
         return totalLength;
-      }
+    }
+
+    let rand = new Intl.NumberFormat('en-ZA', {
+        style: 'currency',
+        currency: 'ZAR',
+    });
 
 
     const isInvalid = list.length === 0 ;
@@ -41,14 +46,7 @@ export default function Checkout(){
     const executeNext = (event) =>{
         event.preventDefault();
 
-        if (userData.isSelfPaying  ) {
-            //navigate to provisionaly registered
-            navigate(ROUTES.PROVISIONALLY)
-        }else{
-            navigate(ROUTES.REGISTERED)
-        }
-        
-
+        navigate(ROUTES.RECEIPT)
    
     }
 
@@ -64,32 +62,39 @@ export default function Checkout(){
                     <Heading>Modules Checkout</Heading>
 
                     <div className="modules_selection">
-                        <div className="table_head">
-                            <div className="col1"> MODULE</div>
-                            <div className="stroke"></div>
-                            <div className="col2">CREDITS</div>
-
-                        </div>
+                        
                          
-                        <div className="table_body">
-                            {list.map(item => (
-                                <CheckoutModule
-                                    id={item.id}
-                                    code={item.code}
-                                    name={item.name}
-                                    credits={item.credits}
-                                />
+                        <div className="payment_details">
+                            <div className="row">
 
-                            ))}
+                                <div>
+                                    Outstanding fees
+                                </div>
+                                <div>
+                                    {rand.format(userData.balanceOwing)}
+                                </div>
+
+                            </div>
+
+                            <div className="row">
+                                <div>
+                                    Registration fee
+                                </div>
+
+                                <div>
+                                    {rand.format(11300)}
+                                </div>
+
+                            </div>
                             
 
                             
 
                         </div>
                         
-                        <div className="table_tail">
+                        <div className="payment_total">
                             <div className="total">
-                                Total   : {getTotalLength(list)}
+                                Total   : {rand.format(11300 + userData.balanceOwing)}
                             </div>
 
                         </div>
@@ -139,6 +144,7 @@ const Section = styled.div`
 
     .modules_selection{
         display: flex;
+        flex-wrap:wrap;
         flex-direction: column;
         margin-top: 40px;
         width: 100%;
@@ -148,31 +154,37 @@ const Section = styled.div`
         }
     }
 
-    .table_head{
+    .row{
         display: flex;
-        flex-direction: row;
-        border-radius: 10px 10px 0px 0px;
-        background: #702A8D;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+
+        font-weight: 600;
+        font-size: 20px;
+
+        @media (max-width: 720px) {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
         
-
-
+         
+        }
     }
 
-    .table_body{
+    
+
+    .payment_details{
         display: flex;
-        padding: 200;
+        width: 100%;
         flex-direction: column;
         border-style: solid;
-        border-width: 0 2px 2px 2px;
+        border-width: 2px;
         border-color: #702A8D;
-        border-radius: 0px 0px 0px 5px;
+        border-radius: 5px 5px 0px 5px;
     }
 
-    .stroke{
-        width: 2px;
-        background-color: grey;
-        
-    }
+
 
     .col1{
         display: flex;
@@ -192,7 +204,7 @@ const Section = styled.div`
         padding-left: 20px;
     }
 
-    .table_tail{
+    .payment_total{
         display: flex;
  
         justify-content: end;
@@ -202,8 +214,15 @@ const Section = styled.div`
         background: #702A8D;
         padding: 5px 35px;
         border-radius: 0px 0px 5px 5px;
-        font-weight: 500;
         justify-content: center;
+        font-weight: 600;
+        font-size: 20px;
+
+        @media (max-width: 720px) {
+            font-size: 16px;
+        
+         
+        }
         
 
 
