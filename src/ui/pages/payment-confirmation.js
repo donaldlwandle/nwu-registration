@@ -90,7 +90,7 @@ export default function ConfirmPayment(){
 
                 <div className="content">
                     <TopSection/>
-                    <Heading>Modules Checkout</Heading>
+                    <Heading>Fees Payment</Heading>
 
                     <div className="modules_selection">
                         

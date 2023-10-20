@@ -44,8 +44,8 @@ export default function Registered(){
                     <div className="registration-status">
                         <CheckCircleIcon fontSize="large" sx={{ color: green[500] }} />
                         <div className=" status_text">
-                            You have been officialy registered with the NWU,
-                            click the finish button below to print the Proof of Registration
+                            You have been officialy registered with the NWU for BCom Information system, Have a great day.
+                            
                         </div>
                         
 

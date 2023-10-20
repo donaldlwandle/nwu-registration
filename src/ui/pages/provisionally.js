@@ -53,7 +53,7 @@ export default function Provisionaly(){
                         <NewReleasesIcon sx={{ color: grey[500] }} />
                         <div className=" status_text">
                             To be be fully registered you have to pay your 
-                            outstanding fee of <span>{rand.format(userData.balanceOwing)}</span> and the registration fee 
+                            outstanding fee of <span>{rand.format(userData.balanceOwing)}</span> and the registration fee of <span>R 11 300,00</span>
                         </div>
                         
 

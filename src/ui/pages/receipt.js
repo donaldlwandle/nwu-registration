@@ -93,7 +93,7 @@ export default function Receipt(){
                         <div className="receipt_container" >
                             
 
-                            <span>Download Recipt</span>
+                            <span>Print the Receipt</span>
 
                         </div>
                         
