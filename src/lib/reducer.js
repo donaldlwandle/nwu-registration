@@ -6,7 +6,9 @@ export const InitialState = {
     modules:[],
     user:null,
     userData:null,
-    firebaseApp:firebaseApp
+    accountData:null,
+    firebaseApp:firebaseApp,
+    sponsor:'nsfas'
 }
 
 const Reducer =(state,action)=>{
@@ -14,6 +16,20 @@ const Reducer =(state,action)=>{
     
  
     switch (action.type){
+        case 'SET_SPONSOR':
+            return{
+                //set login user
+                ...state,
+                sponsor:action.sponsor
+            }
+
+        case 'SET_USER_ACCOUNT_DATA':
+            return{
+                //set login user
+                ...state,
+                accountData:action.accountData
+            }
+
         case 'SET_MODULES':
             return{
                 //set login user

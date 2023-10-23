@@ -16,11 +16,11 @@ const firebaseConfig = {
   const firebaseApp = initializeApp(firebaseConfig);
  
   ///Seed the databasse
-  
+  // seedDatabase(getFirestore(firebaseApp));
 
   
 
-  console.log('FIREBASE :' , firebaseApp);
+
 
   export {firebaseApp };
   

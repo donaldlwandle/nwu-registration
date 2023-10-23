@@ -6,10 +6,9 @@ import TopSection from "../components/topsection";
 
 import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
-import CheckoutModule from "../components/checkout-module";
 
 
-export default function Checkout(){
+export default function SelectSponsor(){
     useEffect(() => {
         document.title = 'NWU-Registration'
       
@@ -17,62 +16,34 @@ export default function Checkout(){
     }, [])
       
 
-    const [{list,userData,accountData},dispatch] = UseStateValue();
-
-    console.log('Account data +++++++ : ',accountData)
-
-    const getTotalLength =(arr) => {
-        // Use the reduce method to sum up the length property of each item
-        const totalLength = arr.reduce((accumulator, currentItem) => {
-          if (typeof currentItem.credits === 'number') {
-            return accumulator + currentItem.credits;
-          } else {
-            console.log(`Item does not have a valid length property: ${JSON.stringify(currentItem)}`);
-            return accumulator;
-          }
-        }, 0);
-      
-        return totalLength;
-      }
-
-
-    const isInvalid = list.length === 0 ;
-
+    const [{list},dispatch] = UseStateValue();
     const navigate = useNavigate();
 
-    const executeNext = (event) =>{
+    const executeSponsor = (event) =>{
         event.preventDefault();
+        dispatch({
+            type:'SET_SPONSOR',
+            sponsor:'bursary'
+          });
 
-    
-
-        if (accountData.sponsor === "NSFAS" ) {
-            if (accountData.balanceOwing > 100) {
-                //navigate to provisionaly registered
-                navigate(ROUTES.PROVISIONALLY)
-
-                //set sponsor to nsfas
-                dispatch({
-                    type:'SET_SPONSOR',
-                    sponsor:'nsfas'
-                  });
-
-            } else {
-                navigate(ROUTES.REGISTERED)
-            }
-        }else{
-            //select sponsor
-            navigate(ROUTES.SELECT_SPONSOR)
-        }
-
-        
+        navigate(ROUTES.PROVISIONALLY)
 
        
-
-
-        
-
-   
     }
+
+    const executeSelf = (event) =>{
+        event.preventDefault();
+        dispatch({
+            type:'SET_SPONSOR',
+            sponsor:'self'
+          });
+
+        navigate(ROUTES.PROVISIONALLY)
+
+       
+    }
+
+
 
     return (
         <Container>
@@ -83,44 +54,23 @@ export default function Checkout(){
 
                 <div className="content">
                     <TopSection/>
-                    <Heading>Modules Checkout</Heading>
+                    <Heading>Who's funding your fees?</Heading>
 
-                    <div className="modules_selection">
-                        <div className="table_head">
-                            <div className="col1"> MODULE</div>
-                            <div className="stroke"></div>
-                            <div className="col2">CREDITS</div>
+                    <div className="registration-status">
+                        
+                        <div className={"self"} onClick={executeSelf}>
+                            Self Paying
 
                         </div>
-                         
-                        <div className="table_body">
-                            {list.map(item => (
-                                <CheckoutModule
-                                    id={item.id}
-                                    code={item.code}
-                                    name={item.name}
-                                    credits={item.credits}
-                                />
 
-                            ))}
-                            
-
-                            
-
+                        <div className="sponsor" onClick={executeSponsor}>
+                            Bursary  
                         </div>
                         
-                        <div className="table_tail">
-                            <div className="total">
-                                Total   : {getTotalLength(list)}
-                            </div>
-
-                        </div>
 
                     </div>
 
                     
-                    <NextButton disabled = {isInvalid}
-                    onClick={executeNext}> Next </NextButton>
                     
 
                 </div>
@@ -159,16 +109,70 @@ const Section = styled.div`
         }
         
     }
+    
+    .self{
+        box-shadow: 0px 30px 40px -20px #a3a5ae;
+        padding:10px;
+        padding: 35px 40px;
+        border-top: 3px solid grey;
+        border-radius: 10px ;
+        cursor:pointer;
+        color: grey ;
+    }
 
-    .modules_selection{
+    .sponsor{
+        box-shadow: 0px 30px 40px -20px #a3a5ae;
+        padding:10px;
+        padding: 35px 55px;
+        border-top: 3px solid #70298d;
+        border-radius: 10px ;
+        color: #70298d;
+        cursor:pointer;
+        @media (max-width: 500px) {
+            margin-top:30px;
+        
+         
+        }
+    }
+
+    .registration-status{
         display: flex;
-        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
         margin-top: 40px;
         width: 100%;
-        h1{
-            font-size: medium;
-            font: 600;
+        font-size: medium;
+        font-weight: 600;
+
+        svg{
+            width: 120px;
+            height: 120px;
         }
+
+        @media (max-width: 500px) {
+            width: 100%;
+            flex-direction: column;
+            justify-content: space-around;
+        
+         
+        }
+    }
+
+    .status_text{
+        color: #2ab514;
+        text-align: center;
+        padding: 10px 100px;
+        font-weight: 600;
+        font-size: 20px;
+
+        @media (max-width: 720px) {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        
+         
+        }
+
     }
 
     .table_head{
@@ -242,6 +246,7 @@ const Heading = styled.h1`
     font-weight: 600;
     line-height: normal;
     margin-top: 40px;
+    text-align: center;
 `;
 
 const NextButton = styled.button`

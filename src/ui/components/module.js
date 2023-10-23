@@ -4,9 +4,10 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { green, grey } from '@mui/material/colors';
 import { UseStateValue } from '../../lib/context/stateProvider';
+import { getCurrency } from '../../utils/currency-format';
 
 
-export default function Module({id,code,name,credits,prereq}) {
+export default function Module({id,code,name,credits,prereq,cost}) {
     const [{list,userData},dispatch] = UseStateValue();
     const [missingItems, setMissingItems] = useState('');
 
@@ -60,7 +61,8 @@ export default function Module({id,code,name,credits,prereq}) {
                                 id:id,
                                 code:code,
                                 name:name,
-                                credits:credits
+                                credits:credits,
+                                cost:cost
                             }
                         });
         
@@ -98,6 +100,11 @@ export default function Module({id,code,name,credits,prereq}) {
 
         </Center>
 
+        <End>
+            {getCurrency(cost)}
+
+        </End>
+
         
     </Container>
   )
@@ -105,7 +112,9 @@ export default function Module({id,code,name,credits,prereq}) {
 
 export const Container = styled.div`
     display:flex;
+    width: 100%;
     padding:10px 0;
+    
     
     &:hover{
         background: whitesmoke;
@@ -116,8 +125,25 @@ export const Container = styled.div`
 export const Start = styled.div`
     display:flex;
     flex-wrap: wrap;
+    width: 10%;
     justify-content: center;
     padding-right: 10px;
+
+    @media (max-width: 720px) {
+        padding-right: 5px;
+            
+        
+         
+    }
+`;
+
+export const End = styled.div`
+    display:flex;
+    flex-wrap: wrap;
+    width: 20%;
+    justify-content: center;
+    padding-right: 10px;
+    
 
     @media (max-width: 720px) {
         padding-right: 5px;
@@ -130,6 +156,7 @@ export const Start = styled.div`
 export const Center = styled.div`
     display:flex;
     flex-direction: column;
+    width: 70%;
     max-width: 600px;
     padding: 0 10px;
 
@@ -155,9 +182,7 @@ export const Center = styled.div`
     }
 `;
 
-export const End = styled.div`
 
-`;
 
 export const Error =styled.p`
     color: #cf0f0f;

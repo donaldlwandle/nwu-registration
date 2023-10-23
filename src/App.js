@@ -16,6 +16,7 @@ const Registered = lazy(()=> import('./ui/pages/registered'));
 const Provisionally = lazy(()=> import('./ui/pages/provisionally'));
 const ConfirmPayment = lazy(()=> import('./ui/pages/payment-confirmation'));
 const Receipt = lazy(()=> import('./ui/pages/receipt'));
+const SelectSponsor = lazy(()=> import('./ui/pages/select-sponsor'));
 
 function App() {
   
@@ -68,16 +69,14 @@ function App() {
       <Router>
         <Suspense fallback ={<p color='white'>Loading...</p>}>
           <Routes>
+            
             <Route exact element={<IsUserLoggedIn user={authUser} Component= {Login} />} path = {ROUTES.LOGIN} />
 
             <Route exact element={<IsUserLoggedIn user={authUser} Component= {ResetPassword} />} path = {ROUTES.RESET_PWORD}  />
 
             <Route exact element={<ProtectedRoute user={authUser} Component={DashBoard}/>} path = {ROUTES.DASHBOARD}  />
 
-
             <Route exact element={<ProtectedRoute user={authUser} Component={Select}/>} path = {ROUTES.SELECT}  />
-
-          
             
             <Route exact element={<ProtectedRoute user={authUser} Component={Checkout}/>} path = {ROUTES.CHECKOUT} />
 
@@ -88,8 +87,9 @@ function App() {
             <Route exact element={<ProtectedRoute user={authUser} Component={ConfirmPayment}/>} path = {ROUTES.CONFIRM_PAYMENT} />
 
             <Route exact element={<ProtectedRoute user={authUser} Component={Receipt}/>} path = {ROUTES.RECEIPT} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={SelectSponsor}/>} path = {ROUTES.SELECT_SPONSOR} />
               
-            
               
           </Routes>
  

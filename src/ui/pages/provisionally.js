@@ -10,6 +10,8 @@ import CheckoutModule from "../components/checkout-module";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { green, grey } from "@mui/material/colors";
+import { getCurrency } from "../../utils/currency-format";
+
 
 
 export default function Provisionaly(){
@@ -20,17 +22,29 @@ export default function Provisionaly(){
     }, [])
       
 
-    const [{list,userData}] = UseStateValue();
+    const [{accountData,userData ,sponsor}] = UseStateValue();
     const navigate = useNavigate();
     
-    let rand = new Intl.NumberFormat('en-ZA', {
-        style: 'currency',
-        currency: 'ZAR',
-    });
-
+    
     const executePayment = (event) =>{
         event.preventDefault();
         navigate(ROUTES.CONFIRM_PAYMENT)
+
+        
+        
+    }
+
+    const uploadNsfas = (event) =>{
+        event.preventDefault();
+        
+
+        
+        
+    }
+
+    const uploadBursary = (event) =>{
+        event.preventDefault();
+        
 
         
         
@@ -52,15 +66,92 @@ export default function Provisionaly(){
                     <div className="registration-status">
                         <NewReleasesIcon sx={{ color: grey[500] }} />
                         <div className=" status_text">
-                            To be be fully registered you have to pay your 
-                            outstanding fee of <span>{rand.format(userData.balanceOwing)}</span> and the registration fee of <span>R 11 300,00</span>
+
+                            { sponsor ==="self" && accountData.balanceOwing > 100? (
+                                <p>
+
+                                    To be be fully registered you have to pay your 
+                                    outstanding fee of <span>{getCurrency(accountData.balanceOwing)}</span> and the <span>Minimum first payment</span>
+
+                                </p>
+                                
+
+                            ):(``)}
+
+                            { sponsor ==="self" && accountData.balanceOwing < 100? (
+                                <p>
+
+                                    To be be fully registered you have to pay your <span>Minimum first payment</span>
+
+                                </p>
+                                
+
+                            ):(``)}
+
+
+                            { sponsor ==="bursary"  ? (
+                                <div>
+                                    <p>
+
+                                        You are Provisionally registered until your <span>Bursary Letter</span> has been verified <br/>
+                                        <span>Upload your bursary letter below</span> 
+
+                                     </p>
+
+                                </div>
+                                
+                                
+
+                            ):(``)}
+
+                            
+                            { sponsor ==="nsfas" ? (
+                                <div>
+
+                                    <p>
+                                        You have an outstanding  amount  of <span>{getCurrency(accountData.balanceOwing)}</span> outside your NSFAS funding due to one of the following reasons :<br/>
+                                        <span>
+                                            <ul>
+                                                <li>Outstanding payments from NSFAS of the previous year(s)</li>
+                                                <li>Legitimate charges on the student account that will not be covered by NSFAS such 
+                                                    as charges for second exam opportunities etc.
+                                                </li>
+                                                <li>
+                                                    Outstanding balance for the year(s) in which the student was not funded by NSFAS and will not be covered by NSFAS
+                                                </li>
+                                            </ul>
+                                            <br/>
+                                            
+                                        </span>
+                                        You will be Provisionally Registered until Your signed <span>Acknowledgement of Debt (AOD) document</span> has been Approved.
+                                            Upload The AOD FORM Below.
+
+                                    </p>
+
+                                </div>
+
+                            ):(``)}
+                            
                         </div>
                         
 
                     </div>
 
-                    <NextButton 
-                    onClick={executePayment}> Proceed to Payment </NextButton>
+                    {sponsor ==='nsfas'? (
+                        <NextButton 
+                        onClick={uploadNsfas}> Upload AOD </NextButton>
+                    ):(``)}
+
+                    {sponsor ==='bursary'? (
+                        <NextButton 
+                        onClick={uploadBursary}> Upload bursary letter </NextButton>
+                    ):(``)}
+
+                    {sponsor ==='self'? (
+                        <NextButton 
+                        onClick={executePayment}> Make payment </NextButton>
+                    ):(``)}
+                    
                     
 
                 </div>

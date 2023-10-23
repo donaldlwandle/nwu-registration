@@ -64,8 +64,8 @@ export default function Select(){
                                     code={module.moduleId}
                                     name= {module.name}
                                     credits={module.credits}
-                                    prereq={module.prerequisites
-                                    }
+                                    prereq={module.prerequisites}
+                                    cost ={module.cost}
                                     />
                                 ))
 

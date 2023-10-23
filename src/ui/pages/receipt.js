@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { green, grey } from "@mui/material/colors";
 import ReactToPrint from "react-to-print";
+import { getCurrency } from "../../utils/currency-format";
+
 
 
 export default function Receipt(){
@@ -23,10 +25,7 @@ export default function Receipt(){
 
     const component = useRef();
 
-    let rand = new Intl.NumberFormat('en-ZA', {
-        style: 'currency',
-        currency: 'ZAR',
-    });
+
 
     let date = new Date();
 
@@ -57,7 +56,7 @@ export default function Receipt(){
                         </StatusText>
                         <TotalText className=" total_text">
                             Payment Amout:
-                            <span>{rand.format(11300 + userData.balanceOwing)}</span>
+                            <span>{getCurrency(11300 + userData.balanceOwing)}</span>
                         </TotalText>
 
                         <DetailsText className=" details_text">

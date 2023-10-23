@@ -51,12 +51,38 @@ export default function DashBoard(){
         
 
     }
+
+
+    async function getAccount(){
+        const q = query(collection(getFirestore(firebaseApp), "accounts"), where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const [aData] = querySnapshot.docs.map((item)=>({
+            ...item.data(),
+            docId:item.id
+
+        }));
+
+        
+
+        dispatch({
+            type:'SET_USER_ACCOUNT_DATA',
+            accountData:aData
+          });
+
+
+        
+
+    }
+
+
     
 
     useEffect(() => {
         document.title = 'NWU-Registration'
         executeGetUserData();
         getModules();
+        getAccount();
         
         
       
@@ -153,17 +179,22 @@ export default function DashBoard(){
                             <Stroke/>
 
                             <Col2>
-                                {userData && !userData.isRegistered? (`Register`) :`Registered` }
+                                {userData ? (`${userData.isRegistered.charAt(0).toUpperCase() + userData.isRegistered.slice(1)}`) :`` }
                                 
                             </Col2>
 
                         </Row2>
                     </Table>
 
-                    <NextButton disabled={!toggleChecked}
-                    type="submit"
-                    onClick={executeNext}
-                    > Next </NextButton>
+                    {userData && userData.isRegistered ==="register"?(
+                        <NextButton disabled={!toggleChecked}
+                        type="submit"
+                        onClick={executeNext}
+                        > Next </NextButton>
+
+                    ):(``)}
+
+
                     
 
 

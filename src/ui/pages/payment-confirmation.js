@@ -7,6 +7,10 @@ import * as ROUTES from '../../utils/constants/routes'
 import { useNavigate } from "react-router-dom";
 import CheckoutModule from "../components/checkout-module";
 import PaystackPop from '@paystack/inline-js'
+import { getCurrency } from "../../utils/currency-format";
+import { getOutstanding, getRecidenceFee, tuition } from "../../utils/calculator";
+
+
 
 export default function ConfirmPayment(){
     useEffect(() => {
@@ -16,27 +20,13 @@ export default function ConfirmPayment(){
     }, [])
       
 
-    const [{list,userData}] = UseStateValue();
+    const [{list,userData ,accountData}] = UseStateValue();
+    console.log('Liast ############# : ',list)
+
+    const totalCost = 2220 + tuition(list,userData)+ getRecidenceFee(userData) + getOutstanding(accountData);
+
+
     
-
-    const getTotalLength =(arr) => {
-        // Use the reduce method to sum up the length property of each item
-        const totalLength = arr.reduce((accumulator, currentItem) => {
-          if (typeof currentItem.credits === 'number') {
-            return accumulator + currentItem.credits;
-          } else {
-            console.log(`Item does not have a valid length property: ${JSON.stringify(currentItem)}`);
-            return accumulator;
-          }
-        }, 0);
-      
-        return totalLength;
-    }
-
-    let rand = new Intl.NumberFormat('en-ZA', {
-        style: 'currency',
-        currency: 'ZAR',
-    });
 
 
     const isInvalid = list.length === 0 ;
@@ -90,33 +80,75 @@ export default function ConfirmPayment(){
 
                 <div className="content">
                     <TopSection/>
-                    <Heading>Fees Payment</Heading>
+                    <Heading>Minimum first payment</Heading>
+                    <div className="subtext">
+                        The following amounts are <span>payable before registration.</span> you will not be able to register until
+                        these amounts have been payed.
+                    </div>
 
                     <div className="modules_selection">
                         
                          
                         <div className="payment_details">
+                            
+
                             <div className="row">
+                                <div>
+                                    NWU RegistrationFees
+                                </div>
 
                                 <div>
-                                    Outstanding fees
-                                </div>
-                                <div>
-                                    {rand.format(userData.balanceOwing)}
+                                    {getCurrency(2220)}
                                 </div>
 
                             </div>
 
+
                             <div className="row">
                                 <div>
-                                    Registration fee
+                                    First Payment on Tuition Fees
                                 </div>
 
                                 <div>
-                                    {rand.format(11300)}
+                                    {getCurrency(tuition(list,userData))}
                                 </div>
 
                             </div>
+
+                            {userData.residence ==="campus"?(
+                                
+                                <div className="row">
+                                    <div>
+                                        First Payment on Residence Fees
+                                    </div>
+
+                                    <div>
+                                        {getCurrency(getRecidenceFee(userData))}
+                                    </div>
+
+                                </div>
+
+                            ):(``)}
+
+
+                            {accountData.balanceOwing > 100?(
+                                
+                                <div className="row">
+                                    <div>
+                                        Outstanding Fees
+                                    </div>
+
+                                    <div>
+                                        {getCurrency(getOutstanding(accountData))}
+                                    </div>
+
+                                </div>
+
+                            ):(``)}
+
+
+
+                           
                             
 
                             
@@ -125,7 +157,7 @@ export default function ConfirmPayment(){
                         
                         <div className="payment_total">
                             <div className="total">
-                                Total   : {rand.format(11300 + userData.balanceOwing)}
+                                Total   : {getCurrency(totalCost)}
                             </div>
 
                         </div>
@@ -148,6 +180,7 @@ const Container = styled.div`
     max-width: 100%;
     flex-direction: column;
     
+    
 
 `;
 
@@ -163,6 +196,7 @@ const Section = styled.div`
         width: 60%;
         flex-direction: column;
         padding-bottom: 50px;
+        
 
         @media (max-width: 1000px) {
             width: 100%;
@@ -172,6 +206,21 @@ const Section = styled.div`
         }
         
     }
+    
+
+    .subtext{
+        margin-top: 15px;
+        font-size: medium;
+        font-weight: 400;
+
+        span{
+            color: #702A8D;
+            font-weight: bold;
+        }
+
+        
+    }
+
 
     .modules_selection{
         display: flex;

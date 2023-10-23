@@ -16,9 +16,6 @@ export default function Header(){
     const [{list, firebaseApp , user}] = UseStateValue();
 
 
-
-    console.log('The firebase app is >>>', firebaseApp);
-
     const executeSignOut =(event) =>{
         
         
