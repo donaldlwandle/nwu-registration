@@ -20,7 +20,7 @@ export default function ConfirmPayment(){
     }, [])
       
 
-    const [{list,userData ,accountData}] = UseStateValue();
+    const [{list,userData ,accountData},dispatch] = UseStateValue();
     console.log('Liast ############# : ',list)
 
     const totalCost = 2220 + tuition(list,userData)+ getRecidenceFee(userData) + getOutstanding(accountData);
@@ -52,6 +52,10 @@ export default function ConfirmPayment(){
             onSuccess(transaction){
                 let message =`Payment Complete! Reference ${transaction.reference}`
                 alert(message)
+                dispatch({
+                    type:'SET_TOTAL',
+                    total:totalCost
+                  });
                 navigate(ROUTES.RECEIPT)
             },
 

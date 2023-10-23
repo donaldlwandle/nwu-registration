@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components"
 import { UseStateValue } from "../../lib/context/stateProvider";
 import Header from "../components/header";
@@ -20,10 +20,16 @@ export default function Provisionaly(){
       
         
     }, [])
+
+
       
 
     const [{accountData,userData ,sponsor}] = UseStateValue();
     const navigate = useNavigate();
+    const [files, setFiles] = useState(null);
+    const [isUpload, setIsUpload] = useState(false);
+
+    const inputRef = useRef();
     
     
     const executePayment = (event) =>{
@@ -34,19 +40,37 @@ export default function Provisionaly(){
         
     }
 
-    const uploadNsfas = (event) =>{
+    const handleOnDrag= (event) =>{
         event.preventDefault();
         
+        
+   
+    }
 
+    const handleOnDrop= (event) =>{
+        event.preventDefault();
+        setFiles(event.dataTransfer.files)
         
+ 
+    }
+
+
+    const uploadNsfas = (event) =>{
+        event.preventDefault();
+        if(files){
+            setIsUpload((isUpload) => !isUpload)
+
+        }
         
+ 
     }
 
     const uploadBursary = (event) =>{
         event.preventDefault();
-        
+        if(files){
+            setIsUpload((isUpload) => !isUpload)
 
-        
+        }
         
     }
 
@@ -98,6 +122,42 @@ export default function Provisionaly(){
 
                                      </p>
 
+                                     {!files && 
+                                        <div className="dropzone" onDragOver={handleOnDrag} onDrop={handleOnDrop}>
+                                            <h1>
+                                                drag or drop files
+
+                                            </h1>
+
+                                            <br/>
+
+                                            <h1>
+                                
+                                                or
+                                            </h1>
+
+                                            <input type={"files"}
+                                            multiple
+                                            hidden
+                                            ref={inputRef}
+                                            onChange={(event) => setFiles(event.target.files)}/>
+                                            <button onClick={() => inputRef.current.click()}>Select files</button>
+                                        </div>
+                                     
+                                     }
+
+                                    {files && 
+                                        <div className="dropzone" >
+                                            <ul>
+                                                {Array.from(files).map((file,idx) => <li key={idx}>{file.name}</li>)}
+                                            </ul>
+                                            
+                                        </div>
+                                     
+                                     }
+
+                                     
+
                                 </div>
                                 
                                 
@@ -128,6 +188,46 @@ export default function Provisionaly(){
 
                                     </p>
 
+                                    {!files && 
+                                        <div className="dropzone" onDragOver={handleOnDrag} onDrop={handleOnDrop}>
+                                            <h1>
+                                                drag or drop files
+
+                                            </h1>
+
+                                            <br/>
+
+                                            <h1>
+                                
+                                                or
+                                            </h1>
+
+                                            <input type={"files"}
+                                            multiple
+                                            hidden
+                                            ref={inputRef}
+                                            onChange={(event) => setFiles(event.target.files)}/>
+                                            <button onClick={() => inputRef.current.click()}>Select files</button>
+                                        </div>
+                                     
+                                     }
+
+                                    {files && 
+                                        <div className="dropzone" >
+                                            <ul>
+                                                {Array.from(files).map((file,idx) => <li key={idx}>{file.name}</li>)}
+                                            </ul>
+                                            
+                                        </div>
+                                     
+                                     }
+
+                                     {isUpload &&
+                                        <div>
+                                            File Uploaded....
+                                        </div>
+                                     }
+
                                 </div>
 
                             ):(``)}
@@ -138,12 +238,12 @@ export default function Provisionaly(){
                     </div>
 
                     {sponsor ==='nsfas'? (
-                        <NextButton 
+                        <NextButton disabled={isUpload}
                         onClick={uploadNsfas}> Upload AOD </NextButton>
                     ):(``)}
 
                     {sponsor ==='bursary'? (
-                        <NextButton 
+                        <NextButton disabled={isUpload}
                         onClick={uploadBursary}> Upload bursary letter </NextButton>
                     ):(``)}
 
@@ -287,6 +387,31 @@ const Section = styled.div`
         font-weight: 500;
         justify-content: center;
         
+
+
+    }
+
+    .dropzone{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 250px;
+        border: 4px dashed grey;
+        margin-top: 20px;
+        padding: 20px;
+        font-size: inherit;
+        font-weight: inherit;
+
+        @media (max-width: 720px) {
+            height: 150px;
+  
+        }
+
+        button{
+            padding: 10;
+            font-size: medium;
+        }
 
 
     }

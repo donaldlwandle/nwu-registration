@@ -8,10 +8,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { green } from "@mui/material/colors";
 import ReactToPrint from "react-to-print";
 import { getCurrency } from "../../utils/currency-format";
+import { style } from "@mui/system";
 
 
 
-export default function Receipt(){
+export default function ProofOfReg(){
     useEffect(() => {
         document.title = 'NWU-Registration'
       
@@ -19,7 +20,7 @@ export default function Receipt(){
     }, [])
       
 
-    const [{total,userData}] = UseStateValue();
+    const [{total,list,userData}] = UseStateValue();
     const[toggleChecked,setToggleChecked] = useState(false);
     const navigate = useNavigate();
 
@@ -47,42 +48,88 @@ export default function Receipt(){
                     
                     
                     <RegistrationStatus ref={component}  className="registration-status">
+
+                        
                         
 
-                        <CheckCircleIcon fontSize="large" sx={{ color: green[500] }} />
-                        <Heading>Thank you for your Payment</Heading>
+                        <Logos>
+                            <div>
+                                <img src="/images/nwupor.png"/>
+                            </div>
+
+                            <div className="adress">
+                                Private Bag X2046, Mmabatho
+                                South Africa, 2735 <br/><br/>
+                                Tel: (018) 389-2111
+                                Web: http://www.nwu.ac.za
+                            </div>
+                        </Logos>
+                        <Heading>PROOF OF REGISTRATION 2023</Heading>
                         <StatusText className=" status_text">
-                            Your Outstanding fees have been payed succesfully.
+                            It is hereby certified that
                         </StatusText>
                         <TotalText className=" total_text">
-                            Payment Amout:
-                            <span>{total && 
-                            getCurrency(total)}</span>
+                            <span>{userData && userData.fullName}</span>
+                        </TotalText>
+
+                        <StatusText className=" status_text">
+                            is registered as a student on the Mahikeng Campus
+                            (NWU Faculty of Economic and Management Sciences)
+                        </StatusText>
+                        
+                        
+                        <DetailsText className=" details_text">
+                            for
+                            {/* <span> Payment processed on :{date.toLocaleDateString()}</span> */}
+                        </DetailsText>
+                        <TotalText className=" total_text">
+                            <span>BACHELOR OF COMMERCE IN INFORMATION SYSTEMS</span>
                         </TotalText>
 
                         <DetailsText className=" details_text">
-                            Payment Details:
-                            <span> Payment processed on :{date.toLocaleDateString()}</span>
-                        </DetailsText>
+                            <span> (5GV H01 2)
 
-                        <DetailsText className=" details_text">
-                            <span> Payment processed at :{date.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</span>
-                        </DetailsText>
-                        <DetailsText className=" details_text">
-                            <span> Payed to :{userData && userData.fullName}</span>
-                        </DetailsText>
+                                Curriculum - INFORMATION SYSTEMS (E301M)
 
-                        <DetailsText className=" details_text">
-                            Payment method:
-                            <span> PaEFT (CHECK)
+                                FULL TIME ( Not Final)
                             </span>
-                            <span> XXXX0000</span>
                         </DetailsText>
+                        <StatusText className=" status_text">
+                            Academic year : 2<br/>
+                            Historical year : 2
+                        </StatusText>
 
                         <DetailsText className=" details_text">
-                            <img src='/images/NWU-white-logo.png' alt='NWU-logo'></img>
-                            <span> Proof Of Residence ON THE WAY</span>
+                            Registered Modules:
+                            
                         </DetailsText>
+
+                        <Modules>
+                            {list && list.map(item => (
+                                    <p>{item.code}</p>
+
+                                ))}
+                        </Modules>
+
+                        <Logos>
+                            <DetailsText className=" details_text">
+                                <span> Registration Date:{date.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</span>
+                            </DetailsText>
+
+                            <DetailsText className=" details_text">
+                                <span> Date of Issue:{date.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</span>
+                            </DetailsText>
+                        </Logos>
+
+                        <Logos>
+
+                            <div className="nwu-logo">
+                                <img src='/images/NWU-white-logo.png' alt='NWU-logo'></img>
+                            </div>
+                        </Logos>
+
+
+            
                         
 
                     </RegistrationStatus>
@@ -96,7 +143,7 @@ export default function Receipt(){
                         <div className="receipt_container" >
                             
 
-                            <span>Print the Receipt</span>
+                            <span>Print the POR</span>
 
                         </div>
                         
@@ -106,11 +153,11 @@ export default function Receipt(){
                     content = {() => component.current}
                     />
 
-                    <NextButton 
+                    {/* <NextButton 
                         
                         type="submit"
                         onClick={executeNext}> Next 
-                    </NextButton>
+                    </NextButton> */}
                         
 
                     
@@ -132,6 +179,45 @@ const Container = styled.div`
     
 
 `;
+const Logos = styled.div`
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    
+
+    img{
+        width: 300px;
+        height: 150px;
+    }
+
+    .adress{
+        width: 300px;
+        padding-top: 10px;
+    }
+    .nwu-logo{
+        margin-top: 25px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        img{
+        width: 90px;
+        height: 90px;
+     }
+    }
+
+`;
+
+const Modules = styled.div`
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    justify-content: space-around;
+`
 
 const RegistrationStatus = styled.div`
     display: flex;
@@ -166,6 +252,7 @@ const StatusText = styled.div`
 
 `;
 
+
 const TotalText = styled.div`
     display: flex;
     flex-direction: column;
@@ -198,7 +285,7 @@ const DetailsText= styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 10px 100px;
+    padding: 25px 100px;
     font-weight: 500;
     font-size: 16px;
     color: black;
@@ -280,25 +367,26 @@ const Section = styled.div`
 
 const Content = styled.div`
     display: flex;
-        width: 60%;
-        flex-direction: column;
-        padding-bottom: 50px;
+    width: 80%;
+    padding: 20px;
+    flex-direction: column;
+    padding-bottom: 50px;
 
-        @media (max-width: 1000px) {
-            width: 100%;
-            
+    @media (max-width: 1000px) {
+        width: 100%;
         
-         
-        }
+    
+        
+    }
 `
 
 const Heading = styled.h1`
-    color: #2ab514;
+    color: black;
     font-size: 25px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
 `;
 

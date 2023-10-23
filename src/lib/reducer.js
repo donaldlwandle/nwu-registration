@@ -8,7 +8,8 @@ export const InitialState = {
     userData:null,
     accountData:null,
     firebaseApp:firebaseApp,
-    sponsor:'nsfas'
+    sponsor:'nsfas',
+    total:null
 }
 
 const Reducer =(state,action)=>{
@@ -16,6 +17,12 @@ const Reducer =(state,action)=>{
     
  
     switch (action.type){
+        case 'SET_TOTAL':
+            return{
+                //set login user
+                ...state,
+                total:action.total
+            }
         case 'SET_SPONSOR':
             return{
                 //set login user

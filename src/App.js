@@ -17,6 +17,7 @@ const Provisionally = lazy(()=> import('./ui/pages/provisionally'));
 const ConfirmPayment = lazy(()=> import('./ui/pages/payment-confirmation'));
 const Receipt = lazy(()=> import('./ui/pages/receipt'));
 const SelectSponsor = lazy(()=> import('./ui/pages/select-sponsor'));
+const ProofOfReg = lazy(()=> import('./ui/pages/por'));
 
 function App() {
   
@@ -89,6 +90,8 @@ function App() {
             <Route exact element={<ProtectedRoute user={authUser} Component={Receipt}/>} path = {ROUTES.RECEIPT} />
 
             <Route exact element={<ProtectedRoute user={authUser} Component={SelectSponsor}/>} path = {ROUTES.SELECT_SPONSOR} />
+
+            <Route exact element={<ProtectedRoute user={authUser} Component={ProofOfReg}/>} path = {ROUTES.POR} />
               
               
           </Routes>

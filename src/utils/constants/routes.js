@@ -9,4 +9,5 @@ export const PROVISIONALLY= '/provisionally-registered';
 export const CONFIRM_PAYMENT= '/confirm-payment';
 export const RECEIPT= '/payment-receipt';
 export const SELECT_SPONSOR= '/select-sponsor';
+export const POR= '/proof-of-registration';
 

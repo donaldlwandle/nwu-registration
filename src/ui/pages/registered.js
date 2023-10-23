@@ -24,6 +24,7 @@ export default function Registered(){
 
     const executePOR = (event) =>{
         event.preventDefault();
+        navigate(ROUTES.POR);
 
        
     }
@@ -52,7 +53,7 @@ export default function Registered(){
                     </div>
 
                     <NextButton 
-                    onClick={executePOR}> Finish </NextButton>
+                    onClick={executePOR}> Proof of Registration </NextButton>
                     
 
                 </div>
