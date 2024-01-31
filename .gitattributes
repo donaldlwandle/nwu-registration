@@ -1,2 +1,3 @@
 app/* linguist-documentation=false
 app/* linguist-vendored
+dist/* linguist-vendored=false
