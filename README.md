@@ -1,9 +1,16 @@
 
 # nwu-registration
-#### North west University student registration portal , 2nd year information systems project.
+#### In the 2nd year BCom Information Systems module for System Analysis and Design Project, our assignment involved the development of an application program. This program is intended to be hosted on a remote server and accessed over the internet via a browser interface. Specifically, it is designed to serve as the North-West University student registration portal, with the following objectives:
+#### • Allow students to securely log in to the system.
+#### • Facilitate registration for INFS second-year modules, both mainstream and extended stream.
+#### • Ensure that there are financial implications associated with continuing the registration process.
+#### • Enable students to register in accordance with the guidelines outlined in the yearbook.
+#### • Provide functionality for students to input or update their biographical information.
+#### • Lastly, generate a proof of registration for students who complete the registration process.
+
 
 ## About the project:
-This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) as a base
+This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) as a base.
 
 #### The following Technologies were used:
 <img align="left" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
