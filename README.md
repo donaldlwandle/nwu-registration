@@ -11,6 +11,10 @@
 
 ## About the project:
 This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) as a base.
+## UI Preview:
+<img width="95%" src="https://drive.google.com/uc?export=download&id=18lQbzpPd8oQQuBy78ggQKBTYKunxBkU5"/>
+<img width="95%" src="https://drive.google.com/uc?export=download&id=1o-7FXnSx9pgDBFtcFkusw9Gjk-JTa3cw"/>
+<img width="95%" src="https://drive.google.com/uc?export=download&id=18WZ2RxVXoQzyc4kpXD4u5HONP5Pxkg73"/>
 
 #### The following Technologies were used:
 <img align="left" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
@@ -27,11 +31,6 @@ This application was bootstrapped with [Create React App](https://github.com/fac
 
 ## Data layer and Business Logic:
 ###### Firebase firestore handles all the data and that data is retrieved using a custom hook; authentication is used on all pages, which is handled by Firebase as well.
-
-## UI Preview:
-<img width="95%" src="https://drive.google.com/uc?export=download&id=18lQbzpPd8oQQuBy78ggQKBTYKunxBkU5"/>
-<img width="95%" src="https://drive.google.com/uc?export=download&id=1o-7FXnSx9pgDBFtcFkusw9Gjk-JTa3cw"/>
-<img width="95%" src="https://drive.google.com/uc?export=download&id=18WZ2RxVXoQzyc4kpXD4u5HONP5Pxkg73"/>
 
 ## Available Scripts
 
