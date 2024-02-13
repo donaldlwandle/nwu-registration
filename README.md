@@ -9,9 +9,9 @@
 #### • Lastly, generate a proof of registration for students who complete the registration process.
 
 ## UI Preview:
-<img width="95%" src="https://drive.google.com/uc?export=download&id=18lQbzpPd8oQQuBy78ggQKBTYKunxBkU5"/>
-<img width="95%" src="https://drive.google.com/uc?export=download&id=1o-7FXnSx9pgDBFtcFkusw9Gjk-JTa3cw"/>
-<img width="95%" src="https://drive.google.com/uc?export=download&id=18WZ2RxVXoQzyc4kpXD4u5HONP5Pxkg73"/>
+<img width="95%" src="https://drive.google.com/thumbnail?id=18lQbzpPd8oQQuBy78ggQKBTYKunxBkU5&sz=w1000" />
+<img width="95%" src="https://drive.google.com/thumbnail?id=1o-7FXnSx9pgDBFtcFkusw9Gjk-JTa3cw&sz=w1000"/>
+<img width="95%" src="https://drive.google.com/thumbnail?id=18WZ2RxVXoQzyc4kpXD4u5HONP5Pxkg73&sz=w1000"/>
 
 ## About the project:
 This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) as a base.
