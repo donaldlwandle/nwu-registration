@@ -1,6 +1,36 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# nwu-registration
+#### In the 2nd year BCom Information Systems module for System Analysis and Design Project, our assignment involved the development of an application program. This program is intended to be hosted on a remote server and accessed over the internet via a browser interface. Specifically, it is designed to serve as the North-West University student registration portal, with the following objectives:
+#### • Allow students to securely log in to the system.
+#### • Facilitate registration for INFS second-year modules, both mainstream and extended stream.
+#### • Ensure that there are financial implications associated with continuing the registration process.
+#### • Enable students to register in accordance with the guidelines outlined in the yearbook.
+#### • Provide functionality for students to input or update their biographical information.
+#### • Lastly, generate a proof of registration for students who complete the registration process.
+
+## UI Preview:
+<img width="95%" src="https://drive.google.com/thumbnail?id=18lQbzpPd8oQQuBy78ggQKBTYKunxBkU5&sz=w1000" />
+<img width="95%" src="https://drive.google.com/thumbnail?id=1o-7FXnSx9pgDBFtcFkusw9Gjk-JTa3cw&sz=w1000"/>
+<img width="95%" src="https://drive.google.com/thumbnail?id=18WZ2RxVXoQzyc4kpXD4u5HONP5Pxkg73&sz=w1000"/>
+
+## About the project:
+This application was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) as a base.
+
+#### The following Technologies were used:
+<img align="left" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+<img align="left" src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"/>
+<img  src="https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=%ffcc32"/>
+<ul>
+  <li>React Custom Hooks</li>
+  <li>React Context</li>
+  <li>React Styled Components</li>
+</ul>
+
+## The User Interface:
+###### I have built the following pages within this application: sign in, sign up, browse & lastly the homepage. There are four different pages, some using protected routes with auth listeners. I used compound components (just a design pattern) to build my components. The styling is all handled via styled components. Using compound components made my actual dumb components really easy to test.
+
+## Data layer and Business Logic:
+###### Firebase firestore handles all the data and that data is retrieved using a custom hook; authentication is used on all pages, which is handled by Firebase as well.
 
 ## Available Scripts
 
@@ -9,62 +39,9 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
